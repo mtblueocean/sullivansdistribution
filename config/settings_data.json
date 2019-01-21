@@ -48,7 +48,7 @@
     "newsletter_action": "https:\\\/\\\/devitems.us11.list-manage.com\\\/subscribe\\\/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef",
     "email_placeholder": "Your email address",
     "button_name": "Subscribe",
-    "newsletter_popup_enable": true,
+    "newsletter_popup_enable": false,
     "one_day_popup_enable": true,
     "newletter_popup_title": "Newsletter",
     "newsletter_text": "Join over 1,000 people who get free and fresh content delivered automatically each time we publish",
