@@ -1,0 +1,9 @@
+{%- if section.settings.logo -%}
+<a href="/" class="theme-logo">
+  <img src="{{ section.settings.logo | img_url: '300x300' }}" alt="{{ section.settings.logo.alt | default: shop.name }}">
+</a>
+{%- else -%}
+<a href="/">
+  {{ shop.name }}
+</a>
+{%- endif -%}

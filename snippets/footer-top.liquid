@@ -1,0 +1,114 @@
+
+{% if section.settings.footer_top_enable %}
+
+
+
+
+<!-- footer-top start -->
+<div class="footer-top" id="footer-top">
+  <div class="container">
+    <div class="row">
+      
+       {% for block in section.blocks %}
+      {% case  block.type %}
+      {% when 'contact_information' %}
+      <div class="col-lg-{{ block.settings.footer_info_coloum }}  col-md-6">
+        <!-- footer-info-area start -->
+        <div class="footer-info-area">
+          <div class="footer-logo">
+              {%- if block.settings.footer_logo -%}
+            <a href="/">
+              <img src="{{ block.settings.footer_logo | img_url: '300x300' }}" alt="{{ block.settings.logo.alt | default: shop.name }}">
+            </a>
+            {%- else -%}
+            <a href="/">
+              {{ shop.name }}
+            </a>
+            {%- endif -%}
+          </div>
+          <div class="desc_footer">
+            {% if block.settings.address_text != '' or block.settings.icon_title_1 != '' %}
+            <p><i class="fa fa-{{ block.settings.icon_title_1}}"></i> <span> {{ block.settings.address_text }}</span> </p>
+            {% endif %}
+            {% if block.settings.phone_number != '' or block.settings.icon_title_2 != '' %}
+            <p><i class="fa fa-{{ block.settings.icon_title_2}}"></i> <span>  {{ block.settings.phone_number }}</span> </p>
+            {% endif %}
+            {% if block.settings.email_address != '' or block.settings.icon_title_3 != '' %}
+            <p><i class="fa fa-{{ block.settings.icon_title_3}}"></i> <span> {{ block.settings.email_address }}</span> </p>
+            {% endif %}
+            
+            <div class="link-follow-footer">
+              <ul class="footer-social-share">
+                {% include 'footer-social' %}
+              </ul>
+            </div>
+          </div>
+        </div>
+        <!-- footer-info-area end -->
+      </div>
+      
+      {% when 'footer_menu' %}
+      <div class="col-lg-{{ block.settings.footer_menu_coloum }} col-md-6">
+        <!-- footer-info-area start -->
+        <div class="footer-info-area">
+           {% if block.settings.footer_menu_title != '' %}
+          <div class="footer-title">
+            <h3>{{ block.settings.footer_menu_title }}</h3>
+          </div>
+           {% endif %}
+          <div class="desc_footer">
+            <ul>
+              {% assign footer_menu = block.settings.footer_menu_handle %}
+              {% for link in linklists[footer_menu].links %}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+        <!-- footer-info-area end -->
+      </div>
+      
+      {% when 'newslatter' %}
+      <div class="col-lg-{{ block.settings.newslatter_coloum }} col-md-12">
+        <!-- footer-info-area start -->
+        <div class="footer-info-area">
+           {% if block.settings.newslatter_title != '' %}
+          <div class="footer-title">
+            <h3>{{ block.settings.newslatter_title }}</h3>
+          </div>
+          {% endif %}
+          <div class="desc_footer">
+            {% include 'footer-newsletter' %}
+              {% if block.settings.newslatter_description != '' %}
+            <p>{{ block.settings.newslatter_description }}</p>
+            {% endif %}
+          </div>
+        </div>
+        <!-- footer-info-area end -->
+      </div>
+         {% endcase %}
+      {% endfor %}
+      
+    </div>
+  </div>
+</div>
+<!-- footer-top end -->
+{% endif %}
+
+
+<style>
+  
+     #footer-top.footer-top{
+    padding-top:{{ section.settings.section_padding_top }}px;
+  }
+  
+ #footer-top.footer-top{
+    padding-bottom:{{ section.settings.section_padding_bottom }}px;
+  }
+  
+    #footer-top.footer-top {
+    background: {{ section.settings.bg_color }};
+}
+  
+  
+</style> 

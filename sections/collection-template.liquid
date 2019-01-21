@@ -1,0 +1,619 @@
+
+
+<!-- content-wraper start -->
+<div class="content-wraper" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row {% if section.settings.sidebar_handle == 'left_sidebar_handle' %}flex-row-reverse{% endif %}">
+      <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9{% endif %} col-12">
+
+        {%- assign products_limit = section.settings.products_limit_handle -%}
+        {%- paginate collection.products by products_limit -%}
+
+        {%- assign paginate_checker = paginate.current_page | times: products_limit -%}
+        {%- if paginate.items > paginate_checker -%}
+        {%- assign paginate_final = paginate_checker -%}
+        {%- else -%}
+        {%- assign paginate_final = paginate.items -%}
+        {%- endif -%}
+
+
+        {%- if section.settings.tab_bar_enable or section.settings.short_by_enable or section.settings.showing_product_counter_enable -%}
+        {% include 'collection-sorting' %}
+        {%- endif -%}
+
+        <!-- shop-products-wrapper start -->
+        <div class="shop-products-wrapper">
+          <div class="tab-content">
+            <div id="grid-view">
+              <div class="shop-product-area">
+                <div class="row">
+                  {%- for product in collection.products -%}
+{%- include 'bold-product' with product, hide_action: 'skip' -%}
+                  <div class="col-lg-{{ section.settings.product_column }} col-md-4 col-sm-6 mt-30">
+                    {%- include 'product-grid-item' -%}
+                  </div>
+                  {%- endfor -%}
+                </div>
+              </div>
+            </div>
+            {%- if paginate.pages > 1 -%}
+            <!-- paginatoin-area start -->
+            <div class="paginatoin-area">
+              <div class="row">
+
+                {%- if section.settings.showing_product_counter_enable -%}
+                <div class="col-lg-6 col-md-6">
+
+                  {% assign showing_title = section.settings.showing_title_handle | split: "|" %}
+                  <p>{{ showing_title | slice: 0 }} 
+                    {{ paginate.current_offset | plus: 1 }} - {{ paginate_final }} 
+                    {{ showing_title | slice: 1 }} 
+                    {{ paginate.items }} 
+                    {{ showing_title | slice: 2 }} </p>
+                </div>
+                {%- endif -%}
+
+                <div class="col-lg-6 col-md-6">
+                  {%- include 'pagination' -%}
+                </div>
+              </div>
+            </div>
+            <!-- paginatoin-area end -->
+            {%- endif -%}
+
+          </div>
+        </div>
+        <!-- shop-products-wrapper end -->
+
+        {%- endpaginate -%}
+      </div>
+      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
+      <div class="col-lg-3 col-12">
+        {%- include 'collection-sidebar' -%}
+      </div>
+      {%- endunless -%}
+    </div>
+  </div>
+</div>
+<!-- content-wraper end -->
+
+<style>
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+{% schema %}
+  {
+  	"name": "Collection Template",
+  	"settings": [
+          {
+              "type": "header",
+              "content": "Product Options"
+          },	
+          {
+            "type": "select",
+            "id": "product_column",
+            "label": "Product Column",
+            "options":[
+                  {
+                      "label": "2 Products",
+                      "value": "6"
+                  },
+                  {
+                      "label": "3 Products",
+                      "value": "4"
+                  },
+                  {
+                      "label": "4 Products",
+                      "value": "3"
+                  }
+              ],
+              "default": "4"
+          },
+		  {
+            "type": "range",
+            "id": "products_limit_handle",
+            "min": 6,
+            "max": 100,
+            "step": 1,
+            "label": "Product Limit",
+            "default": 12,
+			"info": "How many products are displayed on each page"
+          },
+          {
+              "type": "header",
+              "content": "Collection Sorting"
+          },
+		  {
+              "type": "checkbox",
+              "id": "tab_bar_enable",
+              "label": "Show Grid/List View",
+              "default": true
+          },
+		  {
+              "type": "checkbox",
+              "id": "showing_product_counter_enable",
+              "label": "Showing Product Counter",
+              "default": true
+          },
+		  {
+              "type": "text",
+              "id": "showing_title_handle",
+              "label": "Showing Title",
+              "default": "Showing | of | result"
+          },
+
+          {
+              "type": "checkbox",
+              "id": "short_by_enable",
+              "label": "Show Short By",
+              "default": true
+          },
+          {
+              "type": "header",
+              "content": "Collection Sidebar"
+          },
+          {
+              "type": "radio",
+              "id": "sidebar_handle",
+              "label": "Sidebar Position -",
+              "options": [
+                  {
+                      "label": "Left Sidebar",
+                      "value": "left_sidebar_handle"
+                  },
+                  {
+                      "label": "Right Sidebar",
+                      "value": "right_sidebar_handle"
+                  },
+                  {
+                      "label": "Without Sidebar",
+                      "value": "without_sidebar"
+                  }
+              ],
+              "default": "left_sidebar_handle"
+          }
+      ],
+	  "blocks":[
+		 {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+        },
+	    {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+        },
+	    {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+        },
+		{
+          "type": "search",
+          "name": "Search",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Search"
+            }
+          ]
+       },
+	   {
+          "type": "category",
+          "name": "Category",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Categories"
+            },
+            {
+              "type": "range",
+              "id": "categories_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Category Limit",
+              "default": 5
+            },
+            {
+              "type": "select",
+              "id": "product_limit_handle",
+              "label": "How Many Product Show",
+              "options": [
+                {
+                  "label": "3",
+                  "value": "3"
+                },
+                {
+                  "label": "4",
+                  "value": "4"
+                },
+                {
+                  "label": "5",
+                  "value": "5"
+                },
+                {
+                  "label": "7",
+                  "value": "7"
+                }
+              ],
+              "default": "5"
+            }
+          ]
+       },
+	   {
+          "type": "vendor",
+          "name": "Vendor",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Vendors"
+            },
+            {
+              "type": "range",
+              "id": "vendors_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Verdor Limit",
+              "default": 5
+            }
+          ]
+       },
+	   {
+          "type": "type",
+          "name": "Type",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Products Types"
+            },
+            {
+              "type": "range",
+              "id": "types_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Type Limit",
+              "default": 5
+            }
+          ]
+       },
+	   {
+          "type": "color",
+          "name": "Color",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Color"
+            },
+            {
+              "type": "textarea",
+              "id": "color_picker",
+              "label": "Put your color name",
+              "default": "red, green, blue, yellow, white, gold, gray, magenta, maroon, navy, purple, violet, black, pink, orange, silver",
+              "info": "Ex: red, green, blue [More Color Name](https:\/\/www.w3schools.com\/colors\/colors_names.asp)"
+            },
+            {
+              "type": "range",
+              "id": "colors_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Color Limit",
+              "default": 10
+            }
+          ]
+       },
+	   {
+          "type": "size",
+          "name": "Size",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Size"
+            },
+            {
+              "type": "textarea",
+              "id": "size_picker",
+              "label": "Put your size name",
+              "default": "s, m, l, xl, xxl",
+              "info": "Ex: s, m, l, xl, xxl"
+            },
+            {
+              "type": "range",
+              "id": "size_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Size Limit",
+              "default": 5
+            }
+          ]
+       },
+	   {
+          "type": "tag",
+          "name": "Tag",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Tags"
+            },
+            {
+              "type": "range",
+              "id": "tags_list_limit_hanlde",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Size Limit",
+              "default": 15
+            }
+          ]
+       },
+	   {
+          "type": "menu",
+          "name": "Menu",
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Custom Menu"
+            },
+			{
+              "type": "link_list",
+              "id": "menu_handle",
+              "label": "Menu"
+            }
+          ]
+       },
+	   {
+          "type": "banner",
+          "name": "Banner",
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Banner"
+            },
+            {
+              "type": "image_picker",
+              "id": "banner_image",
+              "label": "Image"
+            },
+			{
+              "type": "url",
+              "id": "banner_image_url",
+              "label": "URL"
+            }
+          ]
+       }
+	]
+  }
+{% endschema %}

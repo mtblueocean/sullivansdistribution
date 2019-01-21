@@ -1,0 +1,398 @@
+<!-- Hero Slider start -->
+<div class="hero-slider-box" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="hero-slider hero-slider-two">
+          {% for block in section.blocks %}
+          {% case block.type %}
+          {% when 'slide' %}
+          <div class="single-slide" style="background-image: url({% if block.settings.slider_img %}{{ block.settings.slider_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/1170x450{% endif %})">
+            <!-- Hero Content One Start -->
+            <div class="hero-content-one container">
+              <div class="row">
+                <div class="col"> 
+                  <div class="slider-text-info text-{% if block.settings.text_style == 'text_style_left' %}left{% elsif block.settings.text_style == 'text_style_center' %}center{% elsif block.settings.text_style == 'text_style_right' %}right{% endif %}">
+
+                    {% if block.settings.slider_title != '' %}
+                    <h1>{{ block.settings.slider_title }}</h1>
+                    {% endif %}
+                    {% if block.settings.slider_subtitle != '' %}
+                    <h1>{{ block.settings.slider_subtitle }}</h1>
+                    {% endif %}
+                    {% if block.settings.slider_description != '' %}
+                    <p>{{ block.settings.slider_description }}</p>
+                    {% endif %}
+                    {% if block.settings.button_title != blank %}
+                    <a href="{{ block.settings.button_url }}" class="btn slider-btn uppercase"><span><i class="fa fa-plus"></i> {{ block.settings.button_title }}</span></a>
+                    {% endif %}
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Hero Content One End -->
+          </div>
+          {% endcase %}
+          {% endfor %}
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Hero Slider end -->
+
+
+<style>
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+<script>
+  
+  $('.hero-slider-two').slick({
+        accessibility: false,
+    {% if settings.rtl_enable %} rtl:true, {% endif %}
+        dots: false,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+
+
+</script>
+
+{% schema %}
+  {
+    "name": "Slider 2",
+    "settings": [
+		
+	],
+	"blocks":[
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       },
+	   {
+          "type": "slide",
+          "name": "Slide",
+          "settings": [
+			    {
+                    "type": "image_picker",
+                    "id": "slider_img",
+                    "label": "Image",
+                    "info": "Recommended Size: 1170 x 450px"
+                },
+				{
+                   "type": "header",
+                   "content": "Text Style"
+                },
+                {
+                     "type": "radio",
+                     "id": "text_style",
+                     "label": "Text Style",
+                     "options":[
+                       {
+                           "value":"text_style_left",
+                           "label": "Left"
+                       },
+                       {
+                           "value":"text_style_center",
+                           "label": "center"
+                       },
+                       {
+                           "value":"text_style_right",
+                           "label": "right"
+                       }
+
+                      ],
+
+                     "default": "text_style_left"
+                },
+				{
+                    "type": "text",
+                    "id": "slider_title",
+                    "label": "Slider Title",
+                    "default": "Sketchman Shoes Sport"
+                },
+				{
+                    "type": "text",
+                    "id": "slider_subtitle",
+                    "label": "Slider Subtitle",
+                    "default": "Street Style"
+                },
+				{
+                    "type": "textarea",
+                    "id": "slider_description",
+                    "label": "Slider Description",
+                    "default": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat"
+                },
+				{
+                    "type": "text",
+                    "id": "button_title",
+                    "label": "Button Title",
+                    "default": "Shop Now"
+                },
+				{
+                    "type": "url",
+                    "id": "button_url",
+                    "label": "URL"
+                }
+            ]
+      	 }
+	],
+    "presets":[
+        {
+            "name": "Slider 2",
+            "category": "1. slider"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

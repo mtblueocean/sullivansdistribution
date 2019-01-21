@@ -1,0 +1,1482 @@
+<!-- category-container-slider Start -->
+<div class="category-container-slider" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row {% if section.settings.sidebar_handle == 'left_sidebar_handle' %}flex-row-reverse{% endif %}">
+
+
+      <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9{% endif %} col-12">
+        <!-- category-main-container start -->
+        <div class="category-main-container">
+
+          {% if section.settings.banner_enable %}
+          <!-- Banner area start -->
+          <div class="banner-area mb--30">
+            <div class="row">
+
+              {% for block in section.blocks %}
+              {% case block.type %}
+              {% when 'banner' %}
+              <div class="col-lg-{{ block.settings.banner_coloum }} col-md-12">
+                <!-- single-banner start -->
+                <div class="single-banner mb--30">
+                  <a href="{{ block.settings.banner_img_url }}">
+                    <img src="{% if block.settings.banner_img %}{{ block.settings.banner_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/420x256{% endif %}" alt="{{ block.settings.banner_img.alt }}">
+                  </a>
+                </div>
+                <!-- single-banner end -->
+              </div>
+              {% endcase %}
+              {% endfor %}
+            </div>
+          </div>
+          <!-- Banner area end -->
+          {% endif %}
+
+          {% if section.settings.tab_product_enable %}
+          <!-- product-three-area start -->
+          <div class="product-three-area">
+
+            <div class="row">
+              <div class="col">
+                <div class="section-titele-four">
+                  <div class="section-titele-four-inner">
+                    {% if section.settings.section_title != '' %}
+                    <h2>{{ section.settings.section_title }}</h2>
+                    {% endif %}
+                    <div class="tabs-categorys-list-two">
+                      <ul class="nav" role="tablist">
+                        {% for block in section.blocks %}
+                        {% case block.type %}
+                        {% when 'tab_product' %}
+                        {% assign collection = collections[block.settings.collection] %}
+                        <li><a class="{% if forloop.first == true %}active{% endif %}" href="#section-{{ section.id }}-{{ collection.title | handle }}" role="tab" data-toggle="tab">{{ collection.title }}</a></li>
+                        {% endcase %}
+                        {% endfor %}
+                      </ul>
+                    </div>
+                  </div>
+                  {% if section.settings.section_description != '' %}
+                  <p>{{ section.settings.section_description }}</p>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <!-- product-wrapper-four start -->
+            <div class="product-wrapper-four">
+              <div class="tab-content row">
+                {% for block in section.blocks %}
+                {% case block.type %}
+                {% when 'tab_product' %}
+                {% assign collection = collections[block.settings.collection] %}
+                <div role="tabpanel" class="tab-pane col-12 {% if forloop.first == true %}active show{% endif %}" id="section-{{ section.id }}-{{ collection.title | handle }}">
+                  <div class="row product-slider-show-3 product-slider-show-10">
+                    {% for product in collection.products %}
+                    <div class="col-12">
+                      {% include 'product-grid-item' %}
+                    </div>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endcase %}
+                {% endfor %}
+              </div>
+            </div>
+            <!-- product-wrapper-four end -->
+          </div>
+          <!-- product-three-area end -->
+          {% endif %}
+
+          {% if section.settings.Category_banner_enable %}
+          <!-- product-three-area start -->
+          <div class="product-three-area pt--60">
+            {% if section.settings.section_title_2 != '' or section.settings.section_description_2 != '' %}
+            <div class="row">
+              <div class="col">
+                <div class="section-titele-four">
+                  <div class="section-titele-four-inner">
+                    <h2>{{ section.settings.section_title_2 }}</h2>
+                  </div>
+                  <p>{{ section.settings.section_description_2 }}</p>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+
+            <div class="product-categproes-two">
+              <div class="row">
+                {% for block in section.blocks %}
+                {% case block.type %}
+                {% when 'category_banner' %}
+                <div class="col-lg-{{ block.settings.category_banner_coloum }}">
+                  <!-- categories-list-post-item start -->
+                  <div class="categories-list-post-item mt--30">
+                    <img src="{% if block.settings.category_banner_img %}{{ block.settings.category_banner_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/570x230{% endif %}" alt="{{ block.settings.category_banner_img.alt }}">
+                    <a href="{{ block.settings.category_title_url }}" class="category-inner">{{ block.settings.category_title }}</a>
+                  </div>
+                  <!-- categories-list-post-item end -->
+                </div>
+                {% endcase %}
+                {% endfor %}
+
+
+              </div>
+            </div>
+          </div>
+          <!-- product-three-area end -->
+          {% endif %}
+
+          {% if section.settings.product_enable %}
+          <!-- product-three-area start -->
+          <div class="product-three-area pt--60">
+            {% if section.settings.section_title_3 != '' or section.settings.section_description_3 != '' %}
+            <div class="row">
+              <div class="col">
+                <div class="section-titele-four">
+                  <div class="section-titele-four-inner">
+                    <h2>{{ section.settings.section_title_3 }}</h2>
+                  </div>
+                  <p>{{ section.settings.section_description_3 }}</p>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+            <!-- product-wrapper start -->
+            <div class="product-wrapper">
+              <div class="row product-slider-show-3 product-slider-show-9">
+                {% assign collection_2 = collections[section.settings.collection_2] %}
+                {% for product in collection_2.products %}
+                <div class="col-12">
+                  {% include 'product-grid-item' %}
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            <!-- product-wrapper end -->
+          </div>
+          <!-- product-three-area end -->
+          {% endif %}
+
+        </div>
+        <!-- category-main-container end -->
+      </div>
+
+      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
+      <div class="col-lg-3">
+        <!-- category-container-sidebar start -->
+        <div class="category-container-sidebar">
+          {% if section.settings.deal_product_enable %}
+          <!-- product-sidebar-wrap start -->
+          <div class="product-sidebar-wrap">
+            {% if section.settings.section_title_4 %}
+            <div class="sidebar-content-title">
+              <h3>{{ section.settings.section_title_4 }}</h3>
+            </div>
+            {% endif %}
+            <div class="row sidebar-content-wrap sidebar-single-active sidebar-single-active-4">
+              {% assign collection_3 = collections[section.settings.collection_3] %}
+              {% for product in collection_3.products %}
+              <div class="col">
+                {% include 'product-grid-item-5' %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- product-sidebar-wrap end -->
+          {% endif %}
+          {% if section.settings.top_sellig_enable %}
+          <!-- product-sidebar-wrap start -->
+          <div class="product-sidebar-wrap pt--60">
+            {% if section.settings.section_title_5 %}
+            <div class="sidebar-content-title">
+              <h3>{{ section.settings.section_title_5 }}</h3>
+            </div>
+            {% endif %}
+            <div class="row sidebar-content-wrap sidebar-single-active sidebar-single-active-2">
+
+
+              {% assign collection_4 = collections[section.settings.collection_4] %}
+              {% for product in collection_4.products %}
+
+              {% assign products_num = section.settings.products_per_col %}
+              {% if products_num == '1' %}
+              <!-- trend-product-wrap start -->
+              <div class="col trend-product-wrap">
+                {% include 'product-grid-item-6' %}
+              </div>
+              <!-- trend-product-wrap end -->
+              {% else %}
+
+              {% assign modulo = forloop.index | modulo: products_num %}
+              {% if modulo == 1 %}
+
+              <!-- trend-product-wrap start -->
+              <div class="col trend-product-wrap">
+                {% endif %}
+                {% include 'product-grid-item-6' %}
+                {% if modulo == 0 or forloop.last %}
+              </div>
+              <!-- trend-product-wrap end -->
+              {% endif %}
+              {% endif %}
+
+              {% endfor %}
+
+
+            </div>
+          </div>
+          <!-- product-sidebar-wrap end -->
+          {% endif %}
+
+          {% if section.settings.blog_enable %}
+          <!-- product-sidebar-wrap start -->
+          <div class="product-sidebar-wrap pt--60">
+            {% if section.settings.section_title_6 %}
+            <div class="sidebar-content-title">
+              <h3>{{ section.settings.section_title_6 }}</h3>
+            </div>
+            {% endif %}
+            <div class="row sidebar-content-wrap sidebar-single-active sidebar-single-active-3">
+              {% assign blogs = blogs[section.settings.latest_blog] %}
+              {% for article in blogs.articles %}
+              <div class="col">
+                {% include 'blog-grid-item-2' %}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          <!-- product-sidebar-wrap end -->
+          {% endif %}
+
+          {% if section.settings.testimonial_enable %}
+          <!-- product-sidebar-wrap start -->
+          <div class="product-sidebar-wrap pt--60">
+            {% if section.settings.section_title_7 %}
+            <div class="sidebar-content-title">
+              <h3>{{ section.settings.section_title_7 }}</h3>
+            </div>
+            {% endif %}
+            <div class="row sidebar-content-wrap sidebar-client-active">
+              {% for block in section.blocks %}
+              {% case block.type %}
+              {% when 'testimonial' %}
+              <div class="col single-client-cont">
+                <!-- single-client-say start -->
+                <div class="single-client-say">
+                  {% if block.settings.author_image %}
+                  <div class="single-client-image">
+                    <a href="{{ block.settings.author_image_url }}"><img src="{% if block.settings.author_image %}{{ block.settings.author_image | img_url: 'compact' }}{% else %}http:\/\/via.placeholder.com\/150x150{% endif %}" alt="{{ author_image.alt }}"></a>
+                  </div>
+                  {% endif %}
+                  <div class="single-client-content">
+                    {% if section.settings.author_title != '' %}
+                    <h3><a href="{{ block.settings.author_title_url }}">{{ block.settings.author_title }}</a></h3>
+                    {% endif %}
+                    {% if section.settings.author_description != '' %}
+                    <p>{{ block.settings.author_description }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+                <!-- single-client-say end -->
+              </div>
+              {% endcase %}
+              {% endfor %}
+
+            </div>
+          </div>
+          <!-- product-sidebar-wrap end -->
+          {% endif %}
+        </div>
+        <!-- category-container-sidebar end -->
+      </div>
+
+      {%- endunless -%}
+
+
+    </div>
+  </div>
+</div>
+<!-- category-container-slider Start -->
+
+
+<style>
+  
+  
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+<script>
+  
+      
+      /*--
+        Product show 3 Slider
+    -----------------------------------*/
+    $('#section-{{ section.id }} .product-slider-show-10').slick({
+        dots: false,
+      {% if settings.rtl_enable %} rtl:true, {% endif %}
+        infinite: true,
+        slidesToShow: {{ section.settings.product_cursole }},
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 1199,
+                settings: {
+                    slidesToShow: {{ section.settings.product_cursole }},
+                }
+            },
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+  
+        /*--
+        Product show 3 Slider
+    -----------------------------------*/
+    $('#section-{{ section.id }} .product-slider-show-9').slick({
+        dots: false,
+      {% if settings.rtl_enable %} rtl:true, {% endif %}
+        infinite: true,
+        slidesToShow: {{ section.settings.product_cursole_2 }},
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 1199,
+                settings: {
+                    slidesToShow: {{ section.settings.product_cursole_2 }},
+                }
+            },
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+  
+  
+      /*--
+        Sidebar single active Slider
+    -----------------------------------*/
+    $('#section-{{ section.id }} .sidebar-single-active-4').slick({
+        accessibility: false,
+      {% if settings.rtl_enable %} rtl:true, {% endif %}
+        dots: false,
+        infinite: true,
+        slidesToShow: {{ section.settings.product_cursole_3 }},
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+
+  
+  
+      /*--
+        Sidebar single active Slider
+    -----------------------------------*/
+    $('#section-{{ section.id }} .sidebar-single-active-2').slick({
+        accessibility: false,
+      {% if settings.rtl_enable %} rtl:true, {% endif %}
+        dots: false,
+        infinite: true,
+        slidesToShow: {{ section.settings.product_cursole_4 }},
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+
+    
+      /*--
+        Sidebar single active Slider
+    -----------------------------------*/
+    $('#section-{{ section.id }} .sidebar-single-active-3').slick({
+        accessibility: false,
+      {% if settings.rtl_enable %} rtl:true, {% endif %}
+        dots: false,
+        infinite: true,
+        slidesToShow: {{ section.settings.blog_cursole_handle }},
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+
+        /*--
+        Sidebar single active Slider
+    -----------------------------------*/
+    $('#section-{{ section.id }} .sidebar-single-active-6').slick({
+        accessibility: false,
+      {% if settings.rtl_enable %} rtl:true, {% endif %}
+        dots: false,
+        infinite: true,
+        slidesToShow: {{ section.settings.testimonial_cursole }},
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+
+  
+     /*-- 
+        Testimonial Slider 
+    -----------------------------*/
+    var testimonialSlider = $('#section-{{ section.id }} .sidebar-client-active');
+    testimonialSlider.slick({
+        arrows: false,
+{% if settings.rtl_enable %} rtl:true, {% endif %}
+        autoplay: false,
+        autoplaySpeed: 7000,
+        dots: true,
+        pauseOnFocus: false,
+        pauseOnHover: false,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScoll: 1,
+    });
+
+  
+  
+  </script>
+
+{% schema %}
+  {
+    "name": "Tab With Sidebar",
+    "settings": [
+		{
+          "type": "header",
+          "content": "Banner"
+	    },
+        {
+          "type": "checkbox",
+          "id": "banner_enable",
+          "label": "Banner Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Tab Product"
+        },
+        {
+          "type": "checkbox",
+          "id": "tab_product_enable",
+          "label": "Tab Product Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title",
+          "label": "Section Title",
+          "default": "Our Products"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_description",
+          "label": "Section Description",
+          "default": "Most Trendy 2018 Clother"
+      	},
+        {
+          "type": "select",
+          "id": "product_cursole",
+          "label": "Product cursole",
+          "options":[
+			{
+              "value":"1",
+              "label": "1 products"
+            },
+			{
+              "value":"2",
+              "label": "2 products"
+            },
+            {
+              "value":"3",
+              "label": "3 products"
+            },
+            {
+              "value":"4",
+              "label": "4 products"
+            },
+            {
+              "value":"5",
+              "label": "5 products"
+            },
+            {
+              "value":"6",
+              "label": "6 products"
+            },
+            {
+              "value":"7",
+              "label": "7 products"
+            },
+            {
+              "value":"8",
+              "label": "8 products"
+            },
+            {
+              "value":"9",
+              "label": "9 products"
+            },
+            {
+              "value":"10",
+              "label": "10 products"
+            },
+            {
+              "value":"11",
+              "label": "11 products"
+            },
+            {
+              "value":"12",
+              "label": "12 products"
+            }
+
+          ],
+
+          "default": "3"
+        },
+		{
+		  "type": "header",
+          "content": "Category Banner"
+        },
+        {
+          "type": "checkbox",
+          "id": "Category_banner_enable",
+          "label": "Category Banner Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title_2",
+          "label": "Section Title",
+          "default": "Hot Categories"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_description_2",
+          "label": "Section Description",
+          "default": "Most Trendy 2018 Clother"
+      	},
+		{
+		  "type": "header",
+          "content": "Product"
+        },
+        {
+          "type": "checkbox",
+          "id": "product_enable",
+          "label": "Product Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title_3",
+          "label": "Section Title",
+          "default": "Our Products"
+      	},
+		{
+          "type": "textarea",
+          "id": "section_description_3",
+          "label": "Section Description",
+          "default": "Most Trendy 2018 Clother"
+      	},
+        {
+          	"type": "collection",
+         	 "id": "collection_2",
+          	"label": "select your collection"
+        },
+        {
+          "type": "select",
+          "id": "product_cursole_2",
+          "label": "Product cursole",
+          "options":[
+			{
+              "value":"1",
+              "label": "1 products"
+            },
+			{
+              "value":"2",
+              "label": "2 products"
+            },
+            {
+              "value":"3",
+              "label": "3 products"
+            },
+            {
+              "value":"4",
+              "label": "4 products"
+            },
+            {
+              "value":"5",
+              "label": "5 products"
+            },
+            {
+              "value":"6",
+              "label": "6 products"
+            },
+            {
+              "value":"7",
+              "label": "7 products"
+            },
+            {
+              "value":"8",
+              "label": "8 products"
+            },
+            {
+              "value":"9",
+              "label": "9 products"
+            },
+            {
+              "value":"10",
+              "label": "10 products"
+            },
+            {
+              "value":"11",
+              "label": "11 products"
+            },
+            {
+              "value":"12",
+              "label": "12 products"
+            }
+
+          ],
+
+          "default": "3"
+        },
+        {
+          "type": "header",
+          "content": "Sidebar"
+        },
+        {
+          "type": "radio",
+          "id": "sidebar_handle",
+          "label": "Sidebar Position",
+            "options": [
+              {
+                "label": "Left Sidebar",
+                "value": "left_sidebar_handle"
+              },
+              {
+                "label": "Right Sidebar",
+                "value": "right_sidebar_handle"
+              },
+              {
+                "label": "Without Sidebar",
+                "value": "without_sidebar"
+              }
+            ],
+          "default": "left_sidebar_handle"
+        },
+		{
+		  "type": "header",
+          "content": "Deal Product"
+        },
+        {
+          "type": "checkbox",
+          "id": "deal_product_enable",
+          "label": "Deal Product Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title_4",
+          "label": "Section Title",
+          "default": "Daily Deals"
+      	},
+        {
+          	"type": "collection",
+         	 "id": "collection_3",
+          	"label": "select your collection"
+        },
+        {
+          "type": "select",
+          "id": "product_cursole_3",
+          "label": "Product cursole",
+          "options":[
+			{
+              "value":"1",
+              "label": "1 products"
+            },
+			{
+              "value":"2",
+              "label": "2 products"
+            },
+            {
+              "value":"3",
+              "label": "3 products"
+            },
+            {
+              "value":"4",
+              "label": "4 products"
+            },
+            {
+              "value":"5",
+              "label": "5 products"
+            },
+            {
+              "value":"6",
+              "label": "6 products"
+            },
+            {
+              "value":"7",
+              "label": "7 products"
+            },
+            {
+              "value":"8",
+              "label": "8 products"
+            },
+            {
+              "value":"9",
+              "label": "9 products"
+            },
+            {
+              "value":"10",
+              "label": "10 products"
+            },
+            {
+              "value":"11",
+              "label": "11 products"
+            },
+            {
+              "value":"12",
+              "label": "12 products"
+            }
+
+          ],
+
+          "default": "1"
+        },
+		{
+		  "type": "header",
+          "content": "Top Selling Product"
+        },
+        {
+          "type": "checkbox",
+          "id": "top_sellig_enable",
+          "label": "Top Selling Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title_5",
+          "label": "Section Title",
+          "default": "Trending Products"
+      	},
+        {
+          	"type": "collection",
+         	 "id": "collection_4",
+          	"label": "select your collection"
+        },
+        {
+          "type": "text",
+          "id": "products_per_col",
+          "label": "Products Per Coloum",
+          "default": "4"
+        },
+        {
+          "type": "select",
+          "id": "product_cursole_4",
+          "label": "Product cursole",
+          "options":[
+			{
+              "value":"1",
+              "label": "1 products"
+            },
+			{
+              "value":"2",
+              "label": "2 products"
+            },
+            {
+              "value":"3",
+              "label": "3 products"
+            },
+            {
+              "value":"4",
+              "label": "4 products"
+            },
+            {
+              "value":"5",
+              "label": "5 products"
+            },
+            {
+              "value":"6",
+              "label": "6 products"
+            },
+            {
+              "value":"7",
+              "label": "7 products"
+            },
+            {
+              "value":"8",
+              "label": "8 products"
+            },
+            {
+              "value":"9",
+              "label": "9 products"
+            },
+            {
+              "value":"10",
+              "label": "10 products"
+            },
+            {
+              "value":"11",
+              "label": "11 products"
+            },
+            {
+              "value":"12",
+              "label": "12 products"
+            }
+
+          ],
+
+          "default": "1"
+        },
+		{
+		  "type": "header",
+          "content": "Blog"
+        },
+        {
+          "type": "checkbox",
+          "id": "blog_enable",
+          "label": "Blog Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title_6",
+          "label": "Section Title",
+          "default": "Latest Blog Posts"
+      	},
+		{
+            "type": "blog",
+            "id": "latest_blog",
+            "label": "select your blog"
+		},
+        {
+           "type": "select",
+           "id": "blog_cursole_handle",
+           "label": "Blog Cursole",
+           "options":[
+			  {
+                  "value":"1",
+                  "label": "1 Blog"
+               },
+				{
+                  "value":"2",
+                  "label": "2 Blog"
+               },
+               {
+                  "value":"3",
+                  "label": "3 Blog"
+               },
+               {
+                  "value":"4",
+                  "label": "4 Blog"
+               },
+               {
+                  "value":"5",
+                  "label": "5 Blog"
+               },
+               {
+                  "value":"6",
+                  "label": "6 Blog"
+               },
+               {
+                  "value":"7",
+                  "label": "7 Blog"
+               },
+               {
+                  "value":"8",
+                  "label": "8 Blog"
+               },
+               {
+                  "value":"9",
+                  "label": "9 Blog"
+               },
+               {
+                  "value":"10",
+                  "label": "10 Blog"
+               },
+               {
+                  "value":"11",
+                  "label": "11 Blog"
+               },
+               {
+                  "value":"12",
+                  "label": "12 Blog"
+               }
+
+            ],
+
+            "default": "1"
+        },
+		{
+		  "type": "header",
+          "content": "Testimonial"
+        },
+        {
+          "type": "checkbox",
+          "id": "testimonial_enable",
+          "label": "Testimonial Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Section Heading"
+        },
+		{
+          "type": "text",
+          "id": "section_title_7",
+          "label": "Section Title",
+          "default": "Client Testimonials"
+      	},
+		{
+		  "type": "header",
+          "content": "Testimonial Cursole"
+        },
+        {
+          "type": "select",
+          "id": "testimonial_cursole",
+          "label": "Testimonial Cursole",
+          "options":[
+			{
+              "value":"1",
+              "label": "1 products"
+            },
+			{
+              "value":"2",
+              "label": "2 products"
+            },
+            {
+              "value":"3",
+              "label": "3 products"
+            },
+            {
+              "value":"4",
+              "label": "4 products"
+            },
+            {
+              "value":"5",
+              "label": "5 products"
+            },
+            {
+              "value":"6",
+              "label": "6 products"
+            },
+            {
+              "value":"7",
+              "label": "7 products"
+            },
+            {
+              "value":"8",
+              "label": "8 products"
+            },
+            {
+              "value":"9",
+              "label": "9 products"
+            },
+            {
+              "value":"10",
+              "label": "10 products"
+            },
+            {
+              "value":"11",
+              "label": "11 products"
+            },
+            {
+              "value":"12",
+              "label": "12 products"
+            }
+
+          ],
+
+          "default": "1"
+        }
+	],
+	"blocks":[
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       },
+       {
+           "type": "banner",
+           "name": "Banner",
+           "settings": [
+              {
+                  "type": "text",
+                  "id": "banner_coloum",
+                  "label": "Banner Coloum",
+                  "default": "6",
+                  "info": "Follow Bootstrap Column"
+              },
+              {
+                  "type": "image_picker",
+                  "id": "banner_img",
+                  "label": "Image",
+                  "info": "Recommended Size: 420 x 256px"
+              },
+              {
+                  "type": "url",
+                  "id": "banner_img_url",
+                  "label": "URL"
+              }
+           ]
+       },
+       {
+          "type" : "tab_product",
+          "name" : "Tab Product ",
+          "settings" :[
+            {
+              "type" : "collection",
+              "id" : "collection",
+              "label" : "choose collection"
+            }
+          ]
+
+        },
+        {
+           "type": "category_banner",
+           "name": "category banner",
+           "settings": [
+              {
+                  "type": "text",
+                  "id": "category_banner_coloum",
+                  "label": "Category Banner Coloum",
+                  "default": "8",
+                  "info": "Follow Bootstrap Column"
+              },
+              {
+                  "type": "image_picker",
+                  "id": "category_banner_img",
+                  "label": "Image",
+                  "info": "Recommended Size: 570 x 230px"
+              },
+              {
+                "type": "text",
+                "id": "category_title",
+                "label": "Category Title",
+                "default": "Shoes"
+              },
+              {
+                  "type": "url",
+                  "id": "category_title_url",
+                  "label": "URL"
+              }
+           ]
+         },
+	     {
+           "type": "testimonial",
+           "name": "Testimonial",
+           "settings": [
+              {
+                  "type": "image_picker",
+                  "id": "author_image",
+                  "label": "Author Image",
+                  "info": "Recommended Size: 150 x 150px"
+              },
+              {
+                  "type": "url",
+                  "id": "author_image_url",
+                  "label": "URL"
+              },
+              {
+                  "type": "text",
+                  "id": "author_title",
+                  "label": "Author Title",
+                  "default": "Orando BLoom"
+              },
+              {
+                  "type": "url",
+                  "id": "author_title_url",
+                  "label": "URL"
+              },
+			  {
+                  "type": "textarea",
+                  "id": "author_description",
+                  "label": "Author Description",
+                  "default": "Claritas est etiam processus dynamicus, qui ..."
+              },
+              {
+                  "type": "url",
+                  "id": "author_description_url",
+                  "label": "URL"
+              }
+           ]
+        } 
+	],
+    "presets":[
+        {
+            "name": "Tab With Sidebar",
+            "category": "2. product"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

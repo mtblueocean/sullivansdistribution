@@ -1,0 +1,36 @@
+
+
+{%- assign on_sale = false -%}
+{%- if bold_compare_at_price > bold_price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = bold_selected_or_first_available_variant -%}
+{%- include 'bold-variant' with variant, output: 'none' -%}
+
+{%- if product.available -%}
+{%- assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" -%}
+{%- endif -%} 
+
+
+<!-- trend-single-product start -->
+<div class="trend-single-product">
+  <div class="trend-product-image">
+    <a href="{{ product.url | within: collection }}"><img src="{{ product.featured_image.src | img_url : '90X110', crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}"></a>
+  </div>
+  <div class="trend-product-content">
+    <h3><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+    <div class="price-box">
+      <span class="new-price">{{ bold_price | money }}</span>
+      {% if bold_compare_at_price_max > bold_price %}
+      <span class="old-price">{{ bold_compare_at_price | money }}</span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- trend-single-product end -->

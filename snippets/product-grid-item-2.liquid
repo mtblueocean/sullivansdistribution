@@ -1,0 +1,60 @@
+
+{%- assign on_sale = false -%}
+{%- if bold_compare_at_price > bold_price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = bold_selected_or_first_available_variant -%}
+{%- include 'bold-variant' with variant, output: 'none' -%}
+
+{%- if product.available -%}
+{%- assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" -%}
+{%- endif -%} 
+
+
+<div class="daily-deals-wrap">
+    {% if product.description contains '[countdown]' %}
+  {% assign count_down_first = product.description | split:'[/countdown]' | first %}
+  {% assign count_down_final = count_down_first | split:'[countdown]' | last %}
+  <!-- countdown start -->
+  <div class="countdown-deals" data-countdown="{{ count_down_final }}"></div>
+   {% endif %}
+  <!-- countdown end -->
+  <!-- single-product-wrap start -->
+  <div class="single-product-wrap">
+    <div class="product-image">
+      <a href="{{ product.url | within: collection }}"><img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}"></a>
+      {%- include 'product-badge' -%}
+      {%- if settings.product_quickview_enalbe -%}
+      <div class="quick_view">
+        <a class="quick-view-btn" title="Quick View" data-toggle="modal" data-target="#quickViewModal" href="javascript:void(0);" 
+           onclick="quiqview('{{ product.handle | handleize }}')"><i class="fa fa-search"></i>
+        </a>
+      </div>
+      {%- endif -%}
+    </div>
+    <div class="product-content">
+      <h3><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+      <div class="price-box">
+        <span class="new-price">{{ bold_price | money }}</span>
+        {% if bold_compare_at_price_max > bold_price %}
+        <span class="old-price">{{ bold_compare_at_price | money }}</span>
+        {% endif %}
+      </div>
+      <div class="product-action">
+        {% include 'action-button' %}
+        <div class="star_content">
+          <ul class="d-flex">
+            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- single-product-wrap end -->
+</div>

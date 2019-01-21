@@ -1,0 +1,413 @@
+{% if section.settings.brand_area_enable %}
+
+<!-- Our Brand Area Start -->
+<div class="our-brand-area" id="section-{{ section.id }}">
+  <div class="container">
+    {% if section.settings.border_enable %}
+    <div class="section-pt border-t-one"></div>
+      {% endif %}
+    <div class="row our-brand-active text-center">
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'brand' %}
+      <div class="col-12">
+        <div class="single-brand">
+          <a href="{{ block.settings.brand_img_url }}">
+            <img src="{% if block.settings.brand_img %}{{ block.settings.brand_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/210x100{% endif %}" alt="{{ block.settings.brand_img.alt }}">
+          </a>
+        </div>
+      </div>
+      {% endcase %}
+      {% endfor %}
+
+    </div>
+  </div>
+</div>
+<!-- Our Brand Area End -->
+  {% endif %}
+
+
+<style>
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+
+
+<script>
+
+    /*-- 
+        Brand Slider 
+    ------------------------------------*/
+    var ourBrandActive = $('#section-{{ section.id }} .our-brand-active');
+    ourBrandActive.slick({
+        arrows: true,
+                           {% if settings.rtl_enable %} rtl:true, {% endif %}
+        autoplay: false,
+        dots: false,
+        infinite: true,
+        slidesToShow: {{ section.settings.brand_cursole }},
+        slidesToScoll: 2,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+              breakpoint: 991,
+              settings: {
+                slidesToShow: 4,
+              }
+            },
+            {
+              breakpoint: 767,
+              settings: {
+                slidesToShow: 3,
+              }
+            },
+            {
+              breakpoint: 520,
+              settings: {
+                slidesToShow: 2,
+              }
+            }
+        ]
+    });
+  
+  
+</script>
+
+
+{% schema %}
+  {
+    "name": "Brand Area",
+    "settings": [
+		{
+          "type": "checkbox",
+          "id": "brand_area_enable",
+          "label": "Brand Area Enable",
+          "default": true
+        },
+		{
+		  "type": "header",
+          "content": "Border"
+        },
+		{
+          "type": "checkbox",
+          "id": "border_enable",
+          "label": "Border Show/Hide",
+          "default": false
+        },
+		{
+		  "type": "header",
+          "content": "Brand"
+        },
+        {
+          "type": "select",
+          "id": "brand_cursole",
+          "label": "Product Brand",
+          "options":[
+			{
+              "value":"1",
+              "label": "1 brand"
+            },
+			{
+              "value":"2",
+              "label": "2 brand"
+            },
+            {
+              "value":"3",
+              "label": "3 brand"
+            },
+            {
+              "value":"4",
+              "label": "4 brand"
+            },
+            {
+              "value":"5",
+              "label": "5 brand"
+            },
+            {
+              "value":"6",
+              "label": "6 brand"
+            },
+            {
+              "value":"7",
+              "label": "7 brand"
+            },
+            {
+              "value":"8",
+              "label": "8 brand"
+            },
+            {
+              "value":"9",
+              "label": "9 brand"
+            },
+            {
+              "value":"10",
+              "label": "10 brand"
+            },
+            {
+              "value":"11",
+              "label": "11 brand"
+            },
+            {
+              "value":"12",
+              "label": "12 brand"
+            }
+
+          ],
+
+          "default": "5"
+        }
+	],
+	"blocks":[
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       },
+       {
+           "type": "brand",
+           "name": "brand",
+           "settings": [
+              {
+                  "type": "image_picker",
+                  "id": "brand_img",
+                  "label": "Image",
+                  "info": "Recommended Size: 210 x 100px"
+              },
+              {
+                  "type": "url",
+                  "id": "brand_img_url",
+                  "label": "URL"
+              }
+           ]
+        }
+	],
+    "presets":[
+        {
+            "name": "Brand Area",
+            "category": "5. about"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,18 @@
+<!-- trend-single-product start -->
+<div class="trend-single-product">
+  <div class="trend-product-image">
+     <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url : '100X120', crop: 'center' }}" alt="{{ product.featured_image.alt | escape }}">
+    </a>
+  </div>
+  <div class="trend-product-content">
+    <h3><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+    <div class="price-box">
+       <span class="new-price">{{ bold_price | money }}</span>
+      {% if bold_compare_at_price_max > bold_price %}
+      <span class="old-price">{{ bold_compare_at_price | money }}</span>
+      {% endif %}
+    </div>
+  </div>
+</div>
+<!-- trend-single-product end -->

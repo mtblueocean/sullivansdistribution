@@ -1,0 +1,436 @@
+
+<!-- Trending Product Area Start -->
+<div class="trending-products-area" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'product' -%}
+      <div class="col-lg-{{ block.settings.product_coloum }}">
+        <div class="single-trend-cetagory mt--30">
+          {% if block.settings.section_title != '' %}
+          <div class="section-title-three">
+            <h3>{{ block.settings.section_title }}</h3>
+          </div>
+          {% endif %}
+          <div class="row trend-product-active">
+
+
+            {% assign collection = collections[block.settings.collection] %}
+            {% for product in collection.products %}
+
+            {% assign products_num = block.settings.products_per_col %}
+            {% if products_num == '1' %}
+            <div class="col trend-product-wrap">
+              {% include 'product-grid-item-4' %}
+            </div>
+            {% else %}
+
+            {% assign modulo = forloop.index | modulo: products_num %}
+            {% if modulo == 1 %}
+            <div class="col trend-product-wrap">
+              {% endif %}
+              {% include 'product-grid-item-4' %}
+              {% if modulo == 0 or forloop.last %}
+            </div>
+            {% endif %}
+            {% endif %}
+
+
+            {% endfor %}
+
+
+          </div>
+        </div>
+      </div>
+      {%- endcase -%}
+      {%- endfor -%}
+
+    </div>
+  </div>
+</div>
+<!-- Trending Product Area end -->
+
+
+<style>
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+<script>
+
+    /*--
+        Product Slider
+    -----------------------------------*/
+    $('#section-{{ section.id }} .trend-product-active').slick({
+        dots: false,
+      {% if settings.rtl_enable %} rtl:true, {% endif %}
+        infinite: true,
+        slidesToShow: {{ section.settings.product_cursole }},
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 1199,
+                settings: {
+                    slidesToShow: {{ section.settings.product_cursole }},
+                }
+            },
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 2,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+
+</script>
+
+{% schema %}
+  {
+    "name": "Top Saleing Product",
+    "settings": [
+		{
+          "type": "header",
+          "content": "Product"
+        },
+        {
+          "type": "select",
+          "id": "product_cursole",
+          "label": "Product cursole",
+          "options":[
+			{
+              "value":"1",
+              "label": "1 products"
+            },
+			{
+              "value":"2",
+              "label": "2 products"
+            },
+            {
+              "value":"3",
+              "label": "3 products"
+            },
+            {
+              "value":"4",
+              "label": "4 products"
+            },
+            {
+              "value":"5",
+              "label": "5 products"
+            },
+            {
+              "value":"6",
+              "label": "6 products"
+            },
+            {
+              "value":"7",
+              "label": "7 products"
+            },
+            {
+              "value":"8",
+              "label": "8 products"
+            },
+            {
+              "value":"9",
+              "label": "9 products"
+            },
+            {
+              "value":"10",
+              "label": "10 products"
+            },
+            {
+              "value":"11",
+              "label": "11 products"
+            },
+            {
+              "value":"12",
+              "label": "12 products"
+            }
+
+          ],
+
+          "default": "1"
+        }
+	],
+	"blocks":[
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       },
+       {
+            "type": "product",
+            "name": "Product",
+            "settings": [
+                {
+                  "type": "text",
+                  "id": "product_coloum",
+                  "label": "Product Coloum Control",
+                  "default": "4",
+                  "info": "Follow Bootstrap Column"
+                },
+                {
+                  "type": "text",
+                  "id": "section_title",
+                  "label": "Section Title",
+                  "default": "Earrings"
+                },
+                {
+                  "type": "text",
+                  "id": "products_per_col",
+                  "label": "Products Per Coloum",
+                  "default": "4"
+                },
+                {
+                  "type": "collection",
+                  "id": "collection",
+                  "label": "select your collection"
+                }
+            ]
+         }
+	],
+    "presets":[
+        {
+            "name": "Top Saleing Product",
+            "category": "2. product"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

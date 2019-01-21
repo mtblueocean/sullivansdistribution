@@ -1,0 +1,38 @@
+
+
+<!-- Link all your CSS files below -->
+{{ 'bootstrap.min.css' | asset_url | stylesheet_tag }}
+{{ 'font-awesome.min.css' | asset_url | stylesheet_tag }}
+{{ 'plugins.css' | asset_url | stylesheet_tag }}
+
+<!-- Fancybox CSS -->
+{{ 'jquery.fancybox-1.3.4.css' | asset_url | stylesheet_tag }}
+
+{%- if settings.enable_preloader -%}
+{{ 'preloader.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+<!-- Link your style.css and responsive.css files below -->
+{{ 'style.css' | asset_url | stylesheet_tag }}
+
+<!-- Theme Default CSS -->
+{{ 'theme-default.css' | asset_url | stylesheet_tag }}
+<!-- Make your theme CSS calls here -->
+{{ 'theme-custom.css' | asset_url | stylesheet_tag }}
+
+{% if settings.rtl_enable %}
+{{ 'theme-rtl.css' | asset_url | stylesheet_tag }}
+{% endif %}
+<!-- Make your theme RTL CSS calls here -->
+{{ 'theme-responsive.css' | asset_url | stylesheet_tag }}
+{% if settings.rtl_enable %}
+<!-- Make your theme RTL CSS calls here -->
+{{ 'theme-responsive-rtl.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+<!-- Make all your dynamic CSS calls here -->
+{{ 'skin-theme.css' | asset_url | stylesheet_tag }}
+<!-- Call your theme color CSS here -->
+{{ 'theme-color.css' | asset_url | stylesheet_tag }}
+
+

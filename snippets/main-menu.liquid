@@ -1,0 +1,53 @@
+
+<nav class="main-navigation">
+  <ul>
+    
+    {% for link in linklists.main-menu.links %}
+    {% assign childlink_handle = link.title | handle %}
+    {% if linklists[childlink_handle] and linklists[childlink_handle].links.size > 0 %}
+    <li class="{% if link.active %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }} <i class="fa fa-angle-down"></i></a>
+      
+      <ul class="sub-menu">
+                {% for childlink in linklists[childlink_handle].links %}
+        {% assign grand_childlist_handle = childlink.title | handleize %}
+        {% if linklists[grand_childlist_handle] and linklists[grand_childlist_handle].links.size > 0 %}
+        <li class="mega-menu-tree"><a href="{{ childlink.url }}">{{ childlink.title }}</a>
+        
+          <ul>
+
+              {% for grand_childlist_handle in linklists[grand_childlist_handle].links %}
+            <li><a href="{{ grand_childlist_handle.url }}">{{ grand_childlist_handle.title }}</a></li>
+            {% endfor %}
+            
+          </ul>
+        
+        
+        </li>
+        
+        {% elsif childlink.type == "collection_link" and childlink.object.image %}
+        <li class="menu-img"><a href="{{ childlink.url }}"><img src="{{ childlink.object.image | img_url: 'large' }}"></a></li>
+        {% else %}
+        <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+
+        {% endif %}
+        {% endfor %}
+
+        
+      </ul>
+    </li>
+    
+     {% else %}
+    <li class="{% if link.active %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a></li>
+
+    {% endif %}
+    {% endfor %}
+
+  </ul>
+</nav>
+
+
+<script>
+
+  jQuery('.main-navigation .mega-menu-tree').parent('ul').addClass('mega-menu');
+
+</script>

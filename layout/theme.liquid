@@ -1,0 +1,133 @@
+<!doctype html>
+<!--[if IE 9]> <html class="ie9 no-js supports-no-cookies" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js supports-no-cookies" lang="{{ shop.locale }}"> <!--<![endif]-->
+
+<head>
+  <!-- Basic and Helper page needs -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_primary }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {%- if settings.favicon != blank -%}
+  <link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png" />
+  {%- endif -%}
+
+  <!-- Title and description -->
+  {% capture seo_title %}
+  {{ page_title }}
+  {% if current_tags %}
+  {%- assign meta_tags = current_tags | join: ', ' %} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+  {% endif %}
+  {% if current_page != 1 %}
+  &ndash; {{ 'general.meta.page' | t: page: current_page }}
+  {% endif %}
+  {% unless page_title contains shop.name %}
+  &ndash; {{ shop.name }}
+  {% endunless %}
+  {% endcapture %}
+  <title>{{ seo_title }}</title>
+
+  {%- if page_description -%}
+  <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+
+  <!-- Helpers -->
+  {% include 'social-meta-tags' %}
+
+  <!-- CSS -->
+  {{ 'timber.scss.css' | asset_url | stylesheet_tag }}
+  {%- include 'header-css' -%}
+
+  <!-- Header hook for plugins -->
+  {{ content_for_header }}
+{%- include 'bold-common' -%}
+{%- include 'bold-product' with product, hide_action: 'header' -%}
+  {% include 'oldIE-js' %}
+  <!-- JS -->
+  {%- include 'header-js' -%}
+
+  {% if template contains 'customers' %}
+    {{ 'shopify_common.js' | shopify_asset_url | script_tag }}
+  {% endif %}
+
+</head>
+
+<body id="{{ page_title | handle }}" class="{% if customer %}customer-logged-in {% endif %}template-{{ template.name | handle }}" >
+
+  {%- if settings.enable_preloader -%}
+  {% include 'preloader' %} 
+  {%- endif -%}
+
+  {%- if template == 'index' and settings.newsletter_popup_enable -%}
+  {% include 'newsletter-popup' %}
+  {%- endif -%}
+
+  <div class="wrapper{% if settings.box_layout_enable %} wrapper-box{% endif %}">
+    
+	{%- if settings.topbar_notification_enable -%}
+    {%- if settings.topbar_notification == 'topbar_in_index' and template == 'index' -%}
+    {% include 'top-nocification-bar' %}
+    {%- elsif settings.topbar_notification == 'topbar_in_template' -%}
+    {% include 'top-nocification-bar' %}
+    {%- endif -%}
+    {%- endif -%}
+    
+    <div class="{% if settings.container_box_layout_enable %}container-box{% endif %}">
+    {% section 'header' %}
+
+    {%- if template != 'index' -%}
+    {% include 'breadcrumb-banner' %}
+    {%- endif -%}
+    
+      <main >
+        <div class="{% if settings.container_box_layout_enable %}container-box-inner{% endif %}">
+        {{ content_for_layout }}
+        </div>
+      </main>
+    
+
+    </div>
+    
+    {% section 'footer' %}
+    <!-- Necessary JS -->
+    {% include 'footer-js' %}
+
+  </div>
+  
+  <script type="text/javascript" charset="utf-8">
+    var shappify_customer_tags = {{ customer.tags | json }}
+  </script>
+  
+  <script>
+
+    
+//     $('.top-selector-wrapper li.setting-top').hover(function() {
+//        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeIn(500);
+//     },
+//     function() {
+//        $(this).find('.dropdown-menu').stop(true, true).delay(200).fadeOut(500);
+//     });
+    
+    
+    $('.top-selector-wrapper li.setting-top').hover(function(){
+       $(this).find('.dropdown-menu').toggleClass('open', 200);
+    });
+
+
+  </script>
+</body>
+</html>
+
+<style>
+  
+  .wrapper {
+    background-color: {{ settings.body_bg_color }};
+}
+  
+  .container-box{
+    background: {{ settings.container_box_bg_color }};
+}
+  
+</style>

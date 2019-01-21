@@ -1,0 +1,480 @@
+
+
+<!-- content-wraper start -->
+<div class="content-wraper" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      
+      
+      <div class="col-lg-7 col-sm-12">
+        
+        {% form 'contact' %}
+        {% if form.posted_successfully? %}
+        <p class="note form-success">{{ 'contact.form.post_success' | t }}</p>
+        {% endif %}
+        {{ form.errors | default_errors }}
+        <div class="contact-form">
+          {% if section.settings.contact_form_title != '' %}
+          <div class="contact-title">
+            <h3>{{ section.settings.contact_form_title }}</h3>
+          </div>
+          {% endif %}
+          <div class="contact-page-form">
+            <div class="contact-input">
+              <div class="contact-inner">
+                <input type="text" placeholder="{{ section.settings.name_placeholder }}" class="form-control {% if form.errors contains 'name' %}error{% endif %}" name="contact[name]" id="ContactFormName" value="{% if form.name %}{{ form.name }}{% elsif customer.name %}{{ customer.name }}{% endif %}">
+              </div>
+              <div class="contact-inner">
+                <input type="email" placeholder="{{ section.settings.email_placeholder }}" class="form-control {% if form.errors contains 'email' %}error{% endif %}" name="contact[email]" id="ContactFormEmail" value="{% if form.email %}{{ form.email }}{% elsif customer.email %}{{ customer.email }}{% endif %}">
+              </div>
+              <div class="contact-inner">
+                <input class="form-control" name="contact[subject]" {% if form.error contains 'email' %}error{% endif %} id="contactSubject" placeholder="{{ section.settings.subject_placeholder }}" type="text"  value="{% if form.subject %}{{ form.subject }}{% elsif customer %}{{ customer.subject }}{% endif %}">
+              </div>
+              <div class="contact-inner contact-message">
+                <textarea placeholder="{{ section.settings.message_placeholder }}" class="form-control" name="contact[body]" id="ContactFormMessage">{% if form.body %}{{ form.body }}{% endif %}</textarea>
+              </div>
+            </div>
+            <div class="contact-submit-btn">
+              <button class="submit-btn" type="submit">{{ section.settings.button_title }}</button>
+            </div>
+          </div>
+        </div>
+        {% endform %}
+        
+      </div>
+      
+      
+      <div class="col-lg-5 col-sm-12">
+        
+        <div class="contact-infor">
+          <div class="contact-title">
+            {% if section.settings.location_title != '' %}
+            <h3>{{ section.settings.location_title }}</h3>
+            {% endif %}
+          </div>
+          {% if section.settings.location_description != '' %}
+          <div class="contact-dec">
+            <p>{{ section.settings.location_description }}</p>
+          </div>
+          {% endif %}
+          <div class="contact-address">
+            <ul>
+              {% if section.settings.store_icon_1 != '' or section.settings.store_description_1 != '' %}
+              <li><i class="fa {{ section.settings.store_icon_1 }}"> </i> {{ section.settings.store_description_1 }}</li>
+              {% endif %}
+              {% if section.settings.store_icon_2 != '' or section.settings.store_description_2 != '' %}
+              <li><i class="fa {{ section.settings.store_icon_2 }}">&nbsp;</i> {{ section.settings.store_description_2 }}</li>
+              {% endif %}
+              {% if section.settings.store_icon_3 != '' or section.settings.store_description_3 != '' %}
+              <li><i class="fa {{ section.settings.store_icon_3 }}">&nbsp;</i>{{ section.settings.store_description_3 }}</li>
+              {% endif %}
+            </ul>
+          </div>
+          <div class="work-hours">
+            {% if section.settings.working_title != '' %}
+            <h3><strong>{{ section.settings.working_title }}</strong></h3>
+            {% endif %}
+            {% if section.settings.working_day != '' or section.settings.working_time != '' %}
+            <p><strong>{{ section.settings.working_day }}</strong>{{ section.settings.working_time }}</p>
+            {% endif %}
+          </div>
+        </div>
+
+        
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+<!-- content-wraper end -->
+
+
+
+
+<style>
+  
+    .contact-infor {
+    background: {{ section.settings.bg_color }} none repeat scroll 0 0;
+}
+  
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+
+
+
+
+
+{% schema %}
+  {
+    "name": "Contact Template",
+    "settings": [
+		{
+          "type": "header",
+          "content": "Contact Form"
+        },
+        {
+          "type": "text",
+          "id": "contact_form_title",
+          "label": "Contact Form Title",
+          "default": "Contact us"
+        },
+        {
+          "type": "text",
+          "id": "name_placeholder",
+          "label": "Name",
+          "default": "Name"
+        },
+        {
+          "type": "text",
+          "id": "email_placeholder",
+          "label": "Email",
+          "default": "Email"
+        },
+        {
+          "type": "text",
+          "id": "subject_placeholder",
+          "label": "Subject",
+          "default": "Subject"
+        },
+        {
+          "type": "text",
+          "id": "message_placeholder",
+          "label": "Massage",
+          "default": "Message"
+        },
+        {
+          "type": "text",
+          "id": "button_title",
+          "label": "Buttom Title",
+          "default": "SEND MESSAGE"
+        },
+		{
+          "type": "header",
+          "content": "Store Location"
+        },
+		{
+          "type": "header",
+          "content": "Background Color"
+        },
+        {
+          "type": "color",
+          "id": "bg_color",
+          "label": "BG Color",
+          "default": "#f2f2f2"
+        },
+        {
+          "type": "text",
+          "id": "location_title",
+          "label": "Location Title",
+          "default": "Store information"
+        },
+        {
+          "type": "textarea",
+          "id": "location_description",
+          "label": "Location Discription",
+          "default": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nam ex odio expedita, officia temporibus ipsum, placeat magni quibusdam sint, atque distinctio"
+        },
+		{
+          "type": "header",
+          "content": "Store Location 1"
+        },
+        {
+          "type": "text",
+          "id": "store_icon_1",
+          "label": "Icon",
+          "default": "fa-fax",
+		  "info": "[see more](https:\/\/fontawesome.com)"
+        },
+        {
+          "type": "text",
+          "id": "store_description_1",
+          "label": "Store Description",
+          "default": "Address : No 40 Baria Sreet 133/2 NewYork City"
+        },
+		{
+          "type": "header",
+          "content": "Store Location 2"
+        },
+        {
+          "type": "text",
+          "id": "store_icon_2",
+          "label": "Icon",
+          "default": "fa-phone",
+		  "info": "[see more](https:\/\/fontawesome.com)"
+        },
+        {
+          "type": "text",
+          "id": "store_description_2",
+          "label": "Store Description",
+          "default": "Infor@chairman.com"
+        },
+		{
+          "type": "header",
+          "content": "Store Location 3"
+        },
+        {
+          "type": "text",
+          "id": "store_icon_3",
+          "label": "Icon",
+          "default": "fa-envelope-o",
+		  "info": "[see more](https:\/\/fontawesome.com)"
+        },
+        {
+          "type": "text",
+          "id": "store_description_3",
+          "label": "Store Description",
+          "default": " 0(1234) 567 890"
+        },
+		{
+          "type": "header",
+          "content": "Working Our"
+        },
+        {
+          "type": "text",
+          "id": "working_title",
+          "label": "Working Title",
+          "default": "Working hours"
+        },
+        {
+          "type": "text",
+          "id": "working_day",
+          "label": "Working Day",
+          "default": "Monday &ndash; Saturday:"
+        },
+        {
+          "type": "text",
+          "id": "working_time",
+          "label": "Working Time",
+          "default": "&nbsp;08AM &ndash; 22PM"
+        }
+	],
+	"blocks":[
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

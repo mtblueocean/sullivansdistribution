@@ -1,0 +1,46 @@
+<div class="product-cart-action">
+  {% if product.available %}
+  <a href="{{bold_selected_or_first_available_variant.barcode}}"  class="add-to-cart">Buy From Amazon</a>
+  {% if shop.customer_accounts_enabled and customer and customer.tags contains 'approved' %}
+  {% if settings.product_cart_type == 'ajax_spin_cart' %}
+  <button type="submit" class="ajax-spin-cart add-to-cart" id="AddToCart">
+    <span>
+      <span class="cart-title" id="AddToCartText">{{ settings.cart_button_title }}</span>
+      <span class="cart-loading">{{ settings.wait_title }}</span>
+      <span class="cart-added">{{ settings.added_title }}</span>
+      <span class="cart-unavailable">{{ settings.unavailable_title }}</span>
+    </span>
+  </button>
+  {% elsif settings.product_cart_type == 'ajax_popup_cart' or settings.product_cart_type == 'without_ajax_cart' %}
+  <button type="submit" class="add-to-cart" id="AddToCart">
+    <span>
+      <span class="cart-title" id="AddToCartText">{{ settings.cart_button_title }}</span>
+    </span>
+  </button>
+  {% endif %}
+  {% unless settings.product_cart_type == 'without_ajax_cart' %}
+  <script>
+    jQuery('#AddToCart').click(function(e) {
+      e.preventDefault();
+      Shopify.addItemFromFormStart('AddToCartForm', {{ product.id }});
+                                   }); 
+  </script>
+  {% endunless %}
+   {% else %}
+   <a href="javascript:;"  class="add-to-cart custommsg" >{{ settings.cart_button_title }}</a>
+  <p id="myElem" style="display:none"> Please <a href="/account/login">Login</a> First </p>
+  {% endif %}
+  {% else %}
+  <button type="button" class="cart-disable add-to-cart">
+    <span class="cart-text">{{ settings.soldout_button_title }}</span>
+  </button>
+  {% endif %}
+</div>
+
+<script>
+  $(".custommsg").click(function(){
+     $("#myElem").show().delay(5000).fadeOut();
+   
+});
+ 
+</script>

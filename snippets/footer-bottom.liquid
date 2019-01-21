@@ -1,0 +1,43 @@
+{% if section.settings.footer_bottom_enable %}
+<!-- footer-buttom start -->
+<div class="footer-buttom" id="footer-bottom">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-7">
+        <div class="copy-right">
+          {{ section.settings.copy_ritht_text }}
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-5">
+         {% if section.settings.payment_logo %}
+        <div class="payment">
+          <img src="{% if section.settings.payment_logo %}{{ section.settings.payment_logo | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/470x33{% endif %}" alt="{{ payment_logo.alt }}">
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<!-- footer-buttom start -->
+
+{% endif %}
+
+
+<style>
+   #footer-bottom.footer-bottom{
+    padding-top:{{ section.settings.section_padding_top_2 }}px;
+  }
+  
+ #footer-bottom.footer-bottom{
+    padding-bottom:{{ section.settings.section_padding_bottom_2 }}px;
+  }
+
+  #footer-bottom.footer-bottom {
+    background-color: {{ section.settings.bg_color_2 }};
+}
+  
+  #footer-bottom.footer-buttom {
+    border-top: 1px solid {{ section.settings.border_color }};
+}
+  
+</style> 

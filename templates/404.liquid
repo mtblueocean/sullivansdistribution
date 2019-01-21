@@ -1,0 +1,29 @@
+
+
+<!-- content-wraper start -->
+<div class="content-wraper page-404">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 ml-auto mr-auto text-center">
+        <div class="search-error-wrapper">
+          {% if settings.opps_404 %}
+          <img src="{{ settings.opps_404 | img_url: '1024x1024' }}" alt="" />
+          {% endif %}
+          {% if settings.heading_404 !='' %}
+          <h1>{{ settings.heading_404 }}</h1>
+          {% endif %}
+          {% if settings.sub_heading_404 !='' %}
+          <h2>{{ settings.sub_heading_404 }}</h2>
+          {% endif %}
+          {% if settings.sub_text_404 !='' %}
+          <p class="home-link">{{ settings.sub_text_404 }}</p>
+          {% endif %}
+          {% if settings.button_title !='' %}
+          <a href="{{ settings.button_url }}" class="home-bacck-button">{{ settings.button_title }}</a>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- content-wraper end -->

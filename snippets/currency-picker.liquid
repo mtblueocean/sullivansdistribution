@@ -1,0 +1,37 @@
+{% comment %}
+
+<div class="switcher-currency-trigger currency">
+  <span class="currency-trigger dropdown-toggle">
+    <span class="current-currency">{{ shop.currency }}</span>
+  </span>
+  {% assign currency = settings.supported_currencies | split: '|' %}
+  <ul class="switcher-dropdown">
+    {% for value in currency %}
+    {% assign array = value | split: ',' %}
+    {% assign iso_4217 = array[0] | upcase | strip %}
+    {% assign name = array[1] | strip %}
+    <li data-currency="{{ iso_4217 }}" class="currency__item"><a style="cursor: pointer">{{ name }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
+
+{% endcomment %}
+
+
+
+
+
+<div class="btn-group currency">
+  <button class="dropdown-toggle"> <span class="current-currency">{{ shop.currency }}</span> <i class="fa fa-angle-down"></i></button>
+  <div class="dropdown-menu">
+    {% assign currency = settings.supported_currencies | split: '|' %}
+    <ul>
+      {% for value in currency %}
+      {% assign array = value | split: ',' %}
+      {% assign iso_4217 = array[0] | upcase | strip %}
+      {% assign name = array[1] | strip %}
+      <li data-currency="{{ iso_4217 }}" class="currency__item"><a style="cursor: pointer">{{ name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>

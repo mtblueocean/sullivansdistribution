@@ -1,0 +1,364 @@
+<div class="custom-content" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row">
+      {% for block in section.blocks %}
+      {% case block.type %}
+      {% when 'html_content' %}
+      <div class="col-lg-{{ block.settings.content_column }} col-md-{{ block.settings.content_column_md }} col-xs-12">
+        <div class="html-content">
+          {{ block.settings.html_content }}
+        </div>
+      </div>
+      {%- if block.settings.html_content_css != '' -%}
+      <style>
+        {{ block.settings.html_content_css }}
+      </style>
+      {%- endif -%}
+      {% when 'image_content' %}
+      <div class="col-lg-{{ block.settings.content_column }} col-md-{{ block.settings.content_column_md }} col-xs-12">
+        <div class="image-content">
+          {% if block.settings.image_content_image != blank and block.settings.image_content_image_url != blank %}
+          <a href="{{ block.settings.image_content_image_url }}">
+            <img src="{{ block.settings.image_content_image | img_url: 'master' }}" alt="{{ block.settings.image_content_image.alt }}">
+          </a>
+          {% elsif block.settings.image_content_image != blank %}
+          <img src="{{ block.settings.image_content_image | img_url: 'master' }}" alt="{{ block.settings.image_content_image.alt }}">
+          {% else %}
+          <img src="https://dummyimage.com/800x500/ccc/fff.jpg&text=Image+here" alt="image">
+          {% endif %}
+        </div>
+      </div>
+      {% endcase %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+
+
+<style>
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+
+
+{% schema %}
+  {
+    "name": "Custom Content",
+    "settings": [
+		
+	],
+	"blocks":[
+		{
+          "type": "html_content",
+          "name": "HTML Content",
+          "settings": [
+			{
+			  "type": "range",
+			  "id": "content_column",
+			  "min": 1,
+			  "max": 12,
+			  "step": 1,
+			  "label": "Content Column",
+			  "unit": "/12",
+			  "default": 6
+			},
+			{
+			  "type": "range",
+			  "id": "content_column_md",
+			  "min": 1,
+			  "max": 12,
+			  "step": 1,
+			  "label": "Tablate Content Column",
+			  "unit": "/12",
+			  "default": 6
+			},
+            {
+			  "type": "html",
+			  "id": "html_content",
+			  "label": "HTML Content",
+			  "default": "<div class='html-content-class'><h2>Custom Content Title</h2><p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</p></div>"
+			},
+			{
+			  "type": "html",
+			  "id": "html_content_css",
+			  "label": "HTML Content CSS",
+			  "default": ".html-content-class{color: #666; margin-top: 100px;}.html-content-class h2{margin-bottom: 20px;}"
+			}
+          ]
+       },
+	   {
+          "type": "image_content",
+          "name": "Image Content",
+          "settings": [
+			{
+			  "type": "range",
+			  "id": "content_column",
+			  "min": 1,
+			  "max": 12,
+			  "step": 1,
+			  "label": "Content Column",
+			  "unit": "/12",
+			  "default": 6
+			},
+			{
+			  "type": "range",
+			  "id": "content_column_md",
+			  "min": 1,
+			  "max": 12,
+			  "step": 1,
+			  "label": "Tablate Content Column",
+			  "unit": "/12",
+			  "default": 6
+			},
+            {
+			  "type": "image_picker",
+			  "id": "image_content_image",
+			  "label": "Image"
+			},
+            {
+			  "type": "url",
+			  "id": "image_content_image_url",
+			  "label": "URL"
+			}
+          ]
+       },
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	],
+	"presets": [
+		{
+		  "name": "Custom Content",
+		  "category": "6. others",
+		  "blocks":[
+				{
+					"type": "html_content"
+				},
+				{
+					"type": "image_content"
+				},
+				{
+					"type": "section_padding"
+				}
+			]
+		}
+	]
+  }
+{% endschema %}
+

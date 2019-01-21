@@ -1,0 +1,86 @@
+{%- assign on_sale = false -%}
+{%- if bold_compare_at_price > bold_price -%}
+{%- assign on_sale = true -%}
+{%- endif -%}
+
+{%- assign sold_out = true -%}
+{%- if product.available -%}
+{%- assign sold_out = false -%}
+{%- endif -%}
+
+{%- assign variant = bold_selected_or_first_available_variant -%}
+{%- include 'bold-variant' with variant, output: 'none' -%}
+
+{%- if product.available -%}
+{%- assign func = "Shopify.addItem(" | append: variant.id | append: ", 1)" -%}
+{%- endif -%} 
+
+
+<div class="row product-layout-list">
+  
+  <div class="col-lg-4 col-md-5">
+    <!-- single-product-wrap start -->
+    <div class="single-product-wrap">
+      <div class="product-image">
+        
+        <a href="{{ product.url | within: collection }}">
+      <img src="{{ product.featured_image.src | img_url: 'large' }}" alt="{{ product.featured_image.alt | escape }}">
+    </a>
+        
+        {%- include 'product-badge' -%}
+        
+         {%- if settings.product_quickview_enalbe -%}
+    <div class="quick_view">
+      <a class="quick-view-btn" title="Quick View" data-toggle="modal" data-target="#quickViewModal" href="javascript:void(0);" 
+         onclick="quiqview('{{ product.handle | handleize }}')"><i class="fa fa-search"></i>
+      </a>
+    </div>
+    {%- endif -%}
+        
+      </div>
+    </div>
+    <!-- single-product-wrap end -->
+  </div>
+
+  <div class="col-lg-8 col-md-7">
+    <div class="product_desc">
+      <!-- single-product-wrap start -->
+      <div class="product-content-list">
+        <h3><a href="{{ product.url | within: collection }}">{{ product.title }}</a></h3>
+        <div class="star_content">
+          <ul class="d-flex">
+            <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+          </ul>
+        </div>
+        <div class="price-box">
+          <span class="new-price">{{ bold_price | money }}</span>
+      {% if bold_compare_at_price_max > bold_price %}
+      <span class="old-price">{{ bold_compare_at_price | money }}</span>
+      {% endif %}
+        </div>
+        {% include 'action-button' %}
+        
+         <div class="product-description">
+      {%- if product.description contains '[short_description]' -%} 
+      {%- assign short_description_first = product.description | split:'[/short_description]' | first -%}
+      {%- assign short_description_final = short_description_first | split:'[short_description]' | last -%}
+      {{ short_description_final }}
+      {%- else -%}
+      {{ product.description | strip_html | truncatewords: 35 | split: '[short_description]' | first | split: '[product_description]' | first | split: '[new_products]' | first | split: '[product_video]' | first | split: '[affiliate_link]' | first | split: '[countdown]' | first }}
+      {%- endif -%}
+    </div>
+        
+        {% if product.description contains '[countdown]' %}
+  {% assign count_down_first = product.description | split:'[/countdown]' | first %}
+  {% assign count_down_final = count_down_first | split:'[countdown]' | last %}
+  <!-- countdown start -->
+  <div class="countdown-deals new-coun" data-countdown="{{ count_down_final }}"></div>
+  {% endif %}
+        
+      </div>
+      <!-- single-product-wrap end -->
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,49 @@
+
+
+{% if product.description contains '[affiliate_link]' %}
+{% assign affiliate_link_first = product.description | split:'[/affiliate_link]' | first %}
+{% assign affiliate_link_final = affiliate_link_first | split:'[affiliate_link]' | last %}
+
+<a href="{{ affiliate_link_final }}" class="add-to-cart"><i class="fa fa-plus"></i>{{ settings.affiliate_cart_button_title }}</a>
+
+{% elsif product.available %}
+{% if settings.product_cart_type == 'ajax_spin_cart' %}
+<a href="javascript:void(0);" onclick="{{ func }}; return false;" class="ajax-spin-cart add-to-cart"><i class="fa fa-plus"></i>
+  <span>
+    <span class="cart-title">{{ settings.cart_button_title }}</span>
+    <span class="cart-loading">{{ settings.wait_title }}</span>
+    <span class="cart-added">{{ settings.added_title }}</span>
+    <span class="cart-unavailable">{{ settings.unavailable_title }}</span>
+  </span>
+</a>
+{% elsif settings.product_cart_type == 'ajax_popup_cart' %}
+<a href="javascript:void(0);" onclick="{{ func }}; return false;" class="add-to-cart">
+  <span>
+    <span class="cart-title"><i class="fa fa-plus"></i>{{ settings.cart_button_title }}</span>
+  </span>
+</a>
+{% elsif settings.product_cart_type == 'without_ajax_cart' %}
+<form action="/cart/add" method="post" enctype="multipart/form-data">
+  <select name="id" style="display:none;">
+    {% for variant in product.variants %}
+{%- include 'bold-variant' with variant, hide_action: 'skip' -%}
+    <option value="{{ variant.id }}">{{ variant.title | escape }} - {{ bold_variant_price | money }}</option>
+    {% endfor %}
+  </select>
+{%- unless qb_loaded == 'true' -%}
+<div class='shappify-qty-msg'>{{bold_selected_or_first_available_variant.metafields.shappify_csp.pricing_html}}</div>
+{%- assign qb_loaded = 'true' -%}
+{%- endunless -%}
+
+  <button type="submit" class="add-to-cart">
+    <span>
+      <span class="cart-title"><i class="fa fa-plus"></i>{{ settings.cart_button_title }}</span>
+    </span>
+  </button>
+</form>
+{% endif %}
+{% else %}
+<button class="cart-disable add-to-cart">
+  <span class="cart-text"><i class="fa fa-plus"></i>{{ settings.soldout_button_title }}</span>
+</button>
+{% endif %}

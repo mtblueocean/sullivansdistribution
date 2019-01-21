@@ -1,0 +1,19 @@
+
+{% if section.settings.social_icon_1_name != blank %}
+<li><a href="{{ section.settings.social_icon_1_link }}"  onclick="tidioChatApi.open()"  title="twitter"><i class="fa fa-{{ section.settings.social_icon_1_name }}"></i> CHAT</a></li>
+{% endif %}
+{% if section.settings.social_icon_2_name != blank %}
+<li><a href="{{ section.settings.social_icon_2_link }}" title="Rss"><i class="fa fa-{{ section.settings.social_icon_2_name }}"></i></a></li>
+{% endif %}   
+{% if section.settings.social_icon_3_name != blank %}
+<li><a href="{{ section.settings.social_icon_3_link }}" title="Google"><i class="fa fa-{{ section.settings.social_icon_3_name }}"></i></a></li>
+{% endif %}
+{% if section.settings.social_icon_4_name != blank %}
+<li><a href="{{ section.settings.social_icon_4_link }}" title="Facebook"><i class="fa fa-{{ section.settings.social_icon_4_name }}"></i></a></li>
+{% endif %}
+{% if section.settings.social_icon_5_name != blank %}
+<li><a href="{{ section.settings.social_icon_5_link }}" title="Youtube"><i class="fa fa-{{ section.settings.social_icon_5_name }}"></i></a></li>
+{% endif %}
+{% if section.settings.social_icon_6_name != blank %}
+<li><a href="{{ section.settings.social_icon_6_link }}" title="Instagram"><i class="fa fa-{{ section.settings.social_icon_6_name }}"></i></a></li>
+{% endif %}

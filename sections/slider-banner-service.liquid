@@ -1,0 +1,693 @@
+<!-- category-container-slider Start -->
+<div class="category-container-slider" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row {% if section.settings.sidebar_handle == 'left_sidebar_handle' %}flex-row-reverse{% endif %}">
+      <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9{% endif %} col-12">
+        <!-- category-main-container start -->
+        <div class="category-main-container">
+
+          <!-- Hero-slider-area start -->
+          <div class="hero-slider-area">
+            <div class="row">
+              {% if section.settings.slider_enable %}
+              <div class="col-lg-{{ section.settings.slider_coloum }}">
+                <div class="hero-slider hero-slider-six">
+
+                  {% for block in section.blocks %}
+                  {% case block.type %}
+                  {% when 'slide_1' %}
+                  <div class="single-slide" style="background-image: url({% if block.settings.slider_img %}{{ block.settings.slider_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/580x462{% endif %})">
+                    <!-- Hero Content One Start -->
+                    <div class="hero-content-six container">
+                      <div class="row">
+                        <div class="col-lg-7 ml-auto"> 
+                          <div class="slider-text-info-1 text-{% if block.settings.text_style == 'text_style_left' %}left{% elsif block.settings.text_style == 'text_style_center' %}center{% elsif block.settings.text_style == 'text_style_right' %}right{% endif %}">
+                            {% if block.settings.slider_subtitle != '' %}
+                            <h4>{{ block.settings.slider_subtitle }}</h4>
+                            {% endif %}
+                            {% if block.settings.slider_title != '' %}
+                            <h1>{{ block.settings.slider_title }}</h1>
+                            {% endif %}
+                            {% if block.settings.slider_description != '' %}
+                            <p>{{ block.settings.slider_description }}</p>
+                            {% endif %}
+                            {% if block.settings.button_title != '' %}
+                            <a href="{{ block.settings.button_url }}" class="btn slider-btn uppercase"><span><i class="fa fa-plus"></i>{{ block.settings.button_title }}</span></a>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Hero Content One End -->
+                  </div>
+
+                  {% when 'slide_2' %}
+                  <div class="single-slide" style="background-image: url({% if block.settings.slider_img_2 %}{{ block.settings.slider_img_2 | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/580x462{% endif %})">
+                    <!-- Hero Content One Start -->
+                    <div class="hero-content-six container">
+                      <div class="row">
+                        <div class="col-lg-12 "> 
+                          <div class="slider-text-info-2 text-{% if block.settings.text_style_2 == 'text_style_left_2' %}left{% elsif block.settings.text_style_2 == 'text_style_center_2' %}center{% elsif block.settings.text_style_2 == 'text_style_right_2' %}right{% endif %}">
+                            {% if block.settings.slider_subtitle_2 != '' %}
+                            <h4>{{ block.settings.slider_subtitle_2 }}</h4>
+                            {% endif %}
+                            {% if block.settings.slider_title_2 != '' %}
+                            <h1>{{ block.settings.slider_title_2 }}</h1>
+                            {% endif %}
+                            {% if block.settings.slider_description_2 != '' %}
+                            <p>{{ block.settings.slider_description_2 }}</p>
+                            {% endif %}
+                            {% if block.settings.button_title_2 != '' %}
+                            <a href="{{ block.settings.button_url_2 }}" class="btn slider-btn uppercase"><span>{{ block.settings.button_title_2 }}</span></a>
+                            {% endif %}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Hero Content One End -->
+                  </div>
+                  {% endcase %}
+                  {% endfor %}
+
+
+                </div>
+              </div>
+              {% endif %}
+              {% if section.settings.banner_enable %}
+              <div class="col-lg-{{ section.settings.banner_coloum }}">
+
+                <div class="slier-banner">
+                  <a href="{{ section.settings.banner_img_url }}">
+                    <img src="{% if section.settings.banner_img %}{{ section.settings.banner_img | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/270x220{% endif %}" alt="{{ section.settings.banner_img.alt }}">
+                    {% if section.settings.banner_title != '' %}
+                    <span>{{ section.settings.banner_title }}</span>
+                  </a>
+                  {% endif %}
+                </div>
+
+                <div class="slier-banner mt--30">
+                  <a href="{{ section.settings.banner_img_url_2 }}">
+                    <img src="{% if section.settings.banner_img_2 %}{{ section.settings.banner_img_2 | img_url: 'master' }}{% else %}http:\/\/via.placeholder.com\/270x220{% endif %}" alt="{{ section.settings.banner_img_2.alt }}">
+                    {% if section.settings.banner_title_2 != '' %}
+                    <span>{{ section.settings.banner_title_2 }}</span></a>
+                  {% endif %}
+                </div>
+              </div>
+              {% endif %}
+
+            </div>
+          </div>
+          <!-- Hero-slider-area end -->
+        </div>
+        <!-- category-main-container end -->
+      </div>
+
+      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
+      <div class="col-lg-3">
+        <!-- category-container-sidebar start -->
+        <div class="category-container-sidebar">
+
+          <!-- sidebar Services Area Start -->
+          <div class="sidebar-services-area">
+            <div class="row">
+              <div class="col">
+                {% for block in section.blocks %}
+                {%- case block.type -%}
+                {%- when 'service' -%}
+                <!-- single-service-item start -->
+                <div class="single-service-item">
+                  {% if block.settings.service_icon %}
+                  <div class="our-service-icon">
+                    <i class="fa fa-{{ block.settings.service_icon }}"></i>
+                  </div>
+                  {% endif %}
+                  <div class="our-service-info">
+                    {% if block.settings.service_title != '' %}
+                    <h3>{{ block.settings.service_title }}</h3>
+                    {% endif %}
+                    {% if block.settings.service_description != '' %}
+                    <p>{{ block.settings.service_description }}</p>
+                    {% endif %}
+                  </div>
+                </div>
+                <!-- single-service-item end -->
+                {%- endcase -%}
+                {% endfor %}
+
+              </div>
+            </div>
+          </div>
+          <!-- sidebar Services Area End -->
+        </div>
+        <!-- category-container-sidebar end -->
+      </div>
+      {%- endunless -%}
+
+    </div>
+  </div>
+</div>
+<!-- category-container-slider Start -->
+
+<style>
+  
+  
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+<script>
+  
+  $('.hero-slider').slick({
+        accessibility: false,
+    {% if settings.rtl_enable %} rtl:true, {% endif %}
+        dots: false,
+        infinite: true,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: false,
+        prevArrow:true,
+        nextArrow: true,
+        prevArrow: '<button type="button" class="slick-prev"> <i class="fa fa-angle-left"></i> </button>',
+        nextArrow: '<button type="button" class="slick-next"><i class="fa fa-angle-right"></i></button>',
+        responsive: [
+            {
+                breakpoint: 991,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 767,
+                settings: {
+                    slidesToShow: 1,
+                }
+            },
+            {
+                breakpoint: 520,
+                settings: {
+                    slidesToShow: 1,
+                }
+            }
+        ]
+    });
+
+
+</script>
+
+{% schema %}
+  {
+    "name": "Slider Service Banner",
+    "settings": [
+		{
+          "type": "header",
+          "content": "Slider"
+	    },
+        {
+          "type": "checkbox",
+          "id": "slider_enable",
+          "label": "Slider Enable",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "slider_coloum",
+          "label": "Slider Coloum",
+          "default": "8",
+          "info": "Follow Bootstrap Column"
+        },
+		{
+          "type": "header",
+          "content": "Banner"
+	    },
+        {
+          "type": "checkbox",
+          "id": "banner_enable",
+          "label": "Banner Enable",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "banner_coloum",
+          "label": "Banner Coloum",
+          "default": "4",
+          "info": "Follow Bootstrap Column"
+        },
+		{
+          "type": "header",
+          "content": "Banner Image 1"
+	    },
+        {
+          "type": "image_picker",
+          "id": "banner_img",
+          "label": "Image",
+          "info": "Recommended Size: 270 x 220px"
+        },
+        {
+          "type": "url",
+          "id": "banner_img_url",
+          "label": "URL"
+        },
+		{
+          "type": "text",
+          "id": "banner_title",
+          "label": "Banner Title",
+          "default": "Spring Sale"
+      	},
+		{
+          "type": "header",
+          "content": "Banner Image 2"
+	    },
+        {
+          "type": "image_picker",
+          "id": "banner_img_2",
+          "label": "Image",
+          "info": "Recommended Size: 270 x 220px"
+        },
+        {
+          "type": "url",
+          "id": "banner_img_url_2",
+          "label": "URL"
+        },
+		{
+          "type": "text",
+          "id": "banner_title_2",
+          "label": "Banner Title",
+          "default": "Spring Sale"
+      	},
+        {
+          "type": "header",
+          "content": "Sidebar"
+        },
+        {
+          "type": "radio",
+          "id": "sidebar_handle",
+          "label": "Sidebar Position -",
+            "options": [
+              {
+                "label": "Left Sidebar",
+                "value": "left_sidebar_handle"
+              },
+              {
+                "label": "Right Sidebar",
+                "value": "right_sidebar_handle"
+              },
+              {
+                "label": "Without Sidebar",
+                "value": "without_sidebar"
+              }
+            ],
+          "default": "left_sidebar_handle"
+        }
+	],
+	"blocks":[
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       },
+	   {
+          "type": "slide_1",
+          "name": "Slide 1",
+          "settings": [
+			    {
+                    "type": "image_picker",
+                    "id": "slider_img",
+                    "label": "Image",
+                    "info": "Recommended Size: 580 x 462px"
+                },
+				{
+                   "type": "header",
+                   "content": "Text Style"
+                },
+                {
+                     "type": "radio",
+                     "id": "text_style",
+                     "label": "Text Style",
+                     "options":[
+                       {
+                           "value":"text_style_left",
+                           "label": "Left"
+                       },
+                       {
+                           "value":"text_style_center",
+                           "label": "center"
+                       },
+                       {
+                           "value":"text_style_right",
+                           "label": "right"
+                       }
+
+                      ],
+
+                     "default": "text_style_left"
+                },
+				{
+                    "type": "text",
+                    "id": "slider_subtitle",
+                    "label": "Slider Subtitle",
+                    "default": "Boyka"
+                },
+				{
+                    "type": "text",
+                    "id": "slider_title",
+                    "label": "Slider Title",
+                    "default": "Men"
+                },
+				{
+                    "type": "textarea",
+                    "id": "slider_description",
+                    "label": "Slider Description",
+                    "default": "2018 Collections"
+                },
+				{
+                    "type": "text",
+                    "id": "button_title",
+                    "label": "Button Title",
+                    "default": "Read More"
+                },
+				{
+                    "type": "url",
+                    "id": "button_url",
+                    "label": "URL"
+                }
+            ]
+      	 },
+	     {
+          "type": "slide_2",
+          "name": "Slide 2",
+          "settings": [
+			    {
+                    "type": "image_picker",
+                    "id": "slider_img_2",
+                    "label": "Image",
+                    "info": "Recommended Size: 580 x 462px"
+                },
+				{
+                   "type": "header",
+                   "content": "Text Style"
+                },
+                {
+                     "type": "radio",
+                     "id": "text_style_2",
+                     "label": "Text Style",
+                     "options":[
+                       {
+                           "value":"text_style_left_2",
+                           "label": "Left"
+                       },
+                       {
+                           "value":"text_style_center_2",
+                           "label": "center"
+                       },
+                       {
+                           "value":"text_style_right_2",
+                           "label": "right"
+                       }
+
+                      ],
+
+                     "default": "text_style_center_2"
+                },
+				{
+                    "type": "text",
+                    "id": "slider_subtitle_2",
+                    "label": "Slider Subtitle",
+                    "default": "STYLISH OUTFIT BLENDS"
+                },
+				{
+                    "type": "text",
+                    "id": "slider_title_2",
+                    "label": "Slider Title",
+                    "default": "Best Price Clothings 2018 Offers."
+                },
+				{
+                    "type": "textarea",
+                    "id": "slider_description_2",
+                    "label": "Slider Description",
+                    "default": "Amazing Collection of men are allready wait for you!"
+                },
+				{
+                    "type": "text",
+                    "id": "button_title_2",
+                    "label": "Button Title",
+                    "default": "Buy Now - $193.77"
+                },
+				{
+                    "type": "url",
+                    "id": "button_url_2",
+                    "label": "URL"
+                }
+            ]
+      	 },
+         {
+           "type": "service",
+           "name": "Service",
+           "settings": [
+              {
+                "type": "text",
+                "id": "service_icon",
+                "label": "Icon",
+                "default": "truck",
+                "info": "[See More Icon](https:\/\/fontawsome.com\/)"
+              },
+              {
+                  "type": "text",
+                  "id": "service_title",
+                  "label": "Service Title",
+                  "default": "Free Shipping"
+              },
+              {
+                  "type": "textarea",
+                  "id": "service_description",
+                  "label": "Service Description",
+                  "default": "Free shipping on all US order or order above $200"
+              }
+          ]
+         }
+	],
+    "presets":[
+        {
+            "name": "Slider Service Banner",
+            "category": "1. slider"
+        }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

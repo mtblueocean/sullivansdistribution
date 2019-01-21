@@ -1,0 +1,48 @@
+{% if paginate.pages > 1 %}
+<div class="theme-default-pagination">
+  <nav class="pagination">
+    <ul class="pagination-box">
+      {% if paginate.previous %}
+      <li>
+        <a href="{{ paginate.previous.url }}" aria-label="Previous" class="Previous">
+          <span aria-hidden="true"><i class="fa fa-chevron-left"></i> Prev</span>
+        </a>
+      </li>
+      {% else %}
+      <li class="disabled prev Previous">
+        <a href="#">
+          <span><i class="fa fa-chevron-left"></i> Prev</span>
+        </a>
+      </li>
+      {% endif %}
+      {% for part in paginate.parts %}
+      {% if part.is_link %}
+      <li>
+        <a href="{{ part.url }}" title="">{{ part.title }}</a>
+      </li>
+      {% else %}
+      {% if part.title == paginate.current_page %}
+      <li class="active"><a href="">{{ part.title }}</a></li>
+      {% else %}
+      <li><a href="#">{{ part.title }}</a></li>
+      {% endif %}
+      {% endif %}
+      {% endfor %}
+      {% if paginate.next %}
+      <li class="next Next"><a href="{{ paginate.next.url }}" title="{{ paginate.next.title }}"><span aria-hidden="true">Next <i class="fa fa-chevron-right"></i></span></a></li>
+      {% else %}
+      <li class="disabled next Next">
+        <a href="#">
+          <span>Next <i class="fa fa-chevron-right"></i></span>
+        </a>
+      </li>
+      {% endif %}
+    </ul>
+  </nav>
+</div>
+{% endif %}
+
+<script>
+  $(".theme-default-pagination .disabled a"). removeAttr("href");
+  $(".theme-default-pagination li.active a"). removeAttr("href");
+</script>

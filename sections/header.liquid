@@ -1,0 +1,420 @@
+{% if section.settings.header_style == 'header_style_1' %}
+
+<!-- header-area start -->
+<div class="header-area">
+
+  {% include 'header-top' %}
+  {% include 'header-bottom' %}
+
+</div>
+<!-- Header-area end -->
+{% elsif section.settings.header_style == 'header_style_2' %}
+
+<!-- header-area start -->
+<div class="header-area header-2">
+  
+  {% include 'header-top-2' %}
+   {% include 'header-bottom-2' %}
+  
+</div>
+<!-- Header-area end -->
+{% else %}
+
+ <!-- header-area start -->
+    <div class="header-area header-3">
+      {% include 'header-top-3' %}
+      {% include 'header-bottom-3' %}
+    </div>
+    <!-- Header-area end -->
+
+{% endif %}
+
+
+<style>
+  .theme-logo img{
+    max-width: {{ section.settings.logo_width }}px;
+  }
+</style>
+
+
+
+{% if section.settings.stickey_header_enable %}
+<script>
+  
+  
+    /*--
+        Menu Sticky
+    -----------------------------------*/
+    var windows = $(window);
+    var sticky = $('.header-sticky');
+    
+    windows.on('scroll', function() {
+        var scroll = windows.scrollTop();
+        if (scroll < 230) {
+            sticky.removeClass('is-sticky');
+        }else{
+            sticky.addClass('is-sticky');
+        }
+    });
+    
+  
+</script>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+		{
+          "type": "header",
+          "content": "Header Stickey"
+        },
+        {
+          "type": "checkbox",
+          "id": "stickey_header_enable",
+          "label": "Stickey Header Enable",
+          "default": true
+        },
+		{
+          "type": "header",
+          "content": "Header Style"
+        },
+        {
+            "type": "radio",
+            "id": "header_style",
+            "label": "Header Style",
+            "options":[
+              {
+                  "value":"header_style_1",
+                  "label": "Style 1"
+              },
+              {
+                  "value":"header_style_2",
+                  "label": "Style 2"
+              },
+              {
+                  "value":"header_style_3",
+                  "label": "Style 3"
+              }
+            ],
+
+           "default": "header_style_1"
+        },
+		{
+          "type": "header",
+          "content": "Header Top"
+        },
+		{
+           "type": "header",
+           "content": "Section Padding"
+        },
+        {
+           "type": "text",
+           "id": "section_padding_top",
+           "label": "Section Padding Top",
+           "default": "5" ,
+           "info": "Defined in pixels. Do not add the 'px' unit."
+        },
+        {
+           "type": "text",
+           "id": "section_padding_bottom",
+           "label": "Section Padding Bottom",
+           "default": "5" ,
+           "info": "Defined in pixels. Do not add the 'px' unit."
+        },
+        {
+           "type": "header",
+           "content": "Background color"
+        }, 
+        {
+           "type": "color",
+           "id": "bg_color",
+           "label": "Background Color",
+           "default": "#F6F6F6"
+        },
+        {
+          "type": "header",
+          "content": "Text Color"
+        },
+        {
+          "type": "radio",
+          "id": "text_color",
+          "label": "Text Color",
+          "options":[
+            {
+              "value":"color_1",
+              "label": "Color 1"
+            },
+            {
+              "value":"color_2",
+              "label": "Color 2"
+            }
+          ],
+
+          "default": "color_1"
+        },
+		{
+          "type": "header",
+          "content": "Contact Area"
+        },
+		{
+          "type": "header",
+          "content": "Contact 1"
+        },
+  		{
+          "type": "text",
+          "id": "contact_icon_1",
+          "label": "Icon",
+          "default": "phone"
+        },
+  		{
+          "type": "text",
+          "id": "phone_number",
+          "label": "Phone Number",
+          "default": "(08)123 456 7890"
+        },
+		{
+          "type": "header",
+          "content": "Contact 2"
+        },
+  		{
+          "type": "text",
+          "id": "contact_icon_2",
+          "label": "Icon",
+          "default": "envelope-open-o"
+        },
+  		{
+          "type": "text",
+          "id": "email_id",
+          "label": "Email Id",
+          "default": "yourmail@domain.com"
+        },
+        {
+          "type": "header",
+          "content": "Social Area"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_1_name",
+          "label": "Social Icon Name",
+          "default": "twitter",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_1_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_2_name",
+          "label": "Social Icon Name",
+          "default": "rss",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_2_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_3_name",
+          "label": "Social Icon Name",
+          "default": "google-plus",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/)"
+        },
+        {
+        "type": "url",
+        "id": "social_icon_3_link",
+        "label": "Link"
+        },
+        {
+        "type": "header",
+        "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_4_name",
+          "label": "Social Icon Name",
+          "default": "facebook",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_4_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_5_name",
+          "label": "Social Icon Name",
+          "default": "youtube",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_5_link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Icon With Link"
+        },
+        {
+          "type": "text",
+          "id": "social_icon_6_name",
+          "label": "Social Icon Name",
+          "default": "instagram",
+          "info": "Fontawesome Icon [See Icon](https:\/\/fontawesome.com\/)"
+        },
+        {
+          "type": "url",
+          "id": "social_icon_6_link",
+          "label": "Link"
+        },
+		{
+          "type": "header",
+          "content": "Header Menu"
+        },
+  		{
+          "type": "text",
+          "id": "top_menu_title",
+          "label": "Menu Title",
+          "default": "Setting"
+        },
+		{
+          "type": "header",
+          "content": "Sign in/Sign out Title"
+        },
+  		{
+          "type": "text",
+          "id": "signin_title",
+          "label": "Sign In Title",
+          "default": "Sign in"
+        },
+  		{
+          "type": "text",
+          "id": "signout_title",
+          "label": "Sign Out Title",
+          "default": "Sign out"
+        },
+        {
+          "type": "link_list",
+          "id": "header_top_menu",
+          "label": "Select Menu"
+        },
+		{
+          "type": "header",
+          "content": "Header Bottom"
+        },
+		{
+           "type": "header",
+           "content": "Section Padding"
+        },
+        {
+           "type": "text",
+           "id": "section_padding_top_2",
+           "label": "Section Padding Top",
+           "default": "0" ,
+           "info": "Defined in pixels. Do not add the 'px' unit."
+        },
+        {
+           "type": "text",
+           "id": "section_padding_bottom_2",
+           "label": "Section Padding Bottom",
+           "default": "0" ,
+           "info": "Defined in pixels. Do not add the 'px' unit."
+        },
+        {
+           "type": "header",
+           "content": "Background color"
+        }, 
+        {
+           "type": "color",
+           "id": "bg_color_2",
+           "label": "Background Color",
+           "default": "#ffffff"
+        },
+		{
+          "type": "header",
+          "content": "Logo"
+        },
+		{
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo"
+        },
+		{
+          "type": "range",
+          "id": "logo_width",
+          "label": "Custom logo width",
+          "min": 100,
+          "max": 300,
+          "step": 5,
+          "unit": "px",
+          "default": 150
+        },
+		{
+          "type": "header",
+          "content": "Search"
+        },
+        {
+          "type": "checkbox",
+          "id": "search_enable",
+          "label": "Search Enable",
+          "default": true
+        },
+		{
+          "type": "text",
+          "id": "search_title",
+          "label": "Search Title",
+		  "default": "Search"
+        },
+		{
+          "type": "header",
+          "content": "Mini Cart"
+        },
+		{
+          "type": "text",
+          "id": "cart_item_title",
+          "label": "Item Title",
+		  "default": "Item"
+        },
+		{
+          "type": "text",
+          "id": "view_cart_title",
+          "label": "View Cart Title",
+		  "default": "View Cart"
+        },
+		{
+          "type": "text",
+          "id": "checkout_title",
+          "label": "Checkout Title",
+		  "default": "Checkout"
+        }
+	]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

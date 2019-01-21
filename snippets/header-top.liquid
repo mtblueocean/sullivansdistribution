@@ -1,0 +1,80 @@
+<!-- header-top start -->
+<div class="{% if section.settings.text_color == 'color_1' %}header-top {% else %} header-top bg-black{% endif %}" id="header-top">
+  <div class="container">
+    <div class="row">
+      <div class="order-2 order-lg-1">
+        <div class="top-left-wrap">
+          <ul class="phone-email-wrap">
+            
+            {% if section.settings.phone_number != '' or section.settings.contact_icon_1 != '' %}
+            <li><i class="fa fa-{{ section.settings.contact_icon_1 }}"></i> {{ section.settings.phone_number }}</li>
+            {% endif %}
+            {% if section.settings.email_id != '' or section.settings.contact_icon_2 != '' %}
+            <li><i class="fa fa-{{ section.settings.contact_icon_2 }}"></i> {{ section.settings.email_id }}</li>
+            {% endif %}
+          </ul>
+          <ul class="link-top">
+            {% comment %}
+            {% include 'header-social-icon' %}
+            {% endcomment %}
+          </ul>
+        </div>
+      </div>
+      <div class="order-1 order-lg-2">
+        <div class="top-selector-wrapper">
+          <ul class="single-top-selector">
+            {%- if settings.currency_enable -%}
+            <!-- Currency Start -->
+            <li class="currency list-inline-item">
+              {%- include 'currency-picker' -%}
+            </li>
+            <!-- Currency End -->
+            {%- endif -%}
+            
+            <!-- Sanguage Start -->
+            <li class="setting-top list-inline-item">
+              <div class="btn-group">
+                <button class="dropdown-toggle"><i class="fa fa-user-circle-o"></i> {{ section.settings.top_menu_title }} <i class="fa fa-angle-down"></i></button>
+                <div class="dropdown-menu">
+                  <ul>
+                    {% assign header_top_menu_handle = section.settings.header_top_menu %}
+                     
+                    {% if shop.customer_accounts_enabled and customer %}
+                    <li><a href="/account">Order History</a></li>
+                    <li><a href="/account/logout">{{ section.settings.signout_title }}</a></li>
+                    {% else %}
+                    <li><a href="/account/register">Create Account</a></li>
+                    <li><a href="/account/login">{{ section.settings.signin_title }}</a></li>
+                    {% endif %}
+                  </ul>
+                </div>
+              </div>
+            </li>
+            <!-- Sanguage End -->
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Header-top end -->
+
+
+<style>
+  
+     #header-top.header-top{
+    padding-top:{{ section.settings.section_padding_top }}px;
+  }
+  
+ #header-top.header-top{
+    padding-bottom:{{ section.settings.section_padding_bottom }}px;
+  }
+  
+  #header-top.header-top {
+    background: {{ section.settings.bg_color }};
+}
+
+  
+  
+  </style>

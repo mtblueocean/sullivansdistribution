@@ -1,0 +1,38 @@
+<!-- Header-bottom start -->
+<div class="header-bottom-area header-sticky" id="header-bottom-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 d-none d-lg-block">
+        <!-- main-menu-area start -->
+        <div class="main-menu-area text-center">
+          {% include 'main-menu' %}
+        </div>
+        <!-- main-menu-area start -->
+      </div>
+      <div class="col">
+        <!-- mobile-menu start -->
+        <div class="mobile-menu d-block d-lg-none"></div>
+        <!-- mobile-menu end -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Header-bottom end -->
+
+<style>
+  
+     #header-bottom-area.header-bottom-area{
+    padding-top:{{ section.settings.section_padding_top_2 }}px;
+  }
+  
+ #header-bottom-area.header-bottom-area{
+    padding-bottom:{{ section.settings.section_padding_bottom_2 }}px;
+  }
+ 
+  #header-bottom-area.header-bottom-area {
+    background: {{ section.settings.bg_color_2 }};
+}
+
+  
+  
+  </style>

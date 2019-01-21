@@ -1,0 +1,476 @@
+
+<!-- content-wraper start -->
+<div class="content-wraper" id="section-{{ section.id }}">
+  <div class="container">
+    <div class="row {% if section.settings.sidebar_handle == 'left_sidebar_handle' %}flex-row-reverse{% endif %}">
+
+
+      <div class="{% if section.settings.sidebar_handle == 'without_sidebar' %}col-lg-12{% else %}col-lg-9{% endif %} col-12">
+        <!-- blog-details-wrapper start -->
+        <div class="blog-details-wrapper">
+          <div class="blog-details-image">
+            <img src="{{ article | img_url: 'master' }}" alt="{{ article.image.alt }}">
+          </div>
+          <div class="postinfo-wrapper">
+            <div class="post-info">
+              <h3>{{ article.title }}</h3>
+              <p><span class="meta_author"><span></span>{{ article.author }}</span></p>
+              {{ article.content }}
+              <div class="post-commet">
+                <a class="" href="{{ article.url }}#comments">{{ 'blogs.comments.with_count' | t: count: article.comments_count }}</a>
+                {% include 'blog-share' %}
+              </div>
+            </div>
+            {% if blog.next_article or blog.previous_article %}
+            <div class="article-next-previous">
+              <p class="clearfix">
+                {% if blog.previous_article %}
+                <span class="left">
+                  &larr; {{ 'blogs.article.older_post' | t | link_to: blog.previous_article }}
+                </span>
+                {% endif %}
+                {% if blog.next_article %}
+                <span class="right">
+                  {{ 'blogs.article.newer_post' | t | link_to: blog.next_article }} &rarr;
+                </span>
+                {% endif %}
+              </p>
+              <hr>
+            </div>
+            {% endif %} 
+
+            <div class="review_address_inner">
+              {%- if article.comments_enabled? -%}
+              {%- assign comment_post_limit = section.settings.comment_post_limit_handle -%}
+              {%- paginate article.comments by comment_post_limit -%}
+              <div id="comments" class="comment-success">
+                {%- if comment and comment.created_at -%}
+                <p class="note form-success">
+                  {%- if blog.comments_modareted? -%}
+                  {{ 'blogs.comments.success_moderated' | t }}            
+                  {%- else -%}
+                  {{ 'blogs.comments.success' | t }}
+                  {%- endif -%}
+                </p>
+                {%- endif -%}
+
+                {%- if article.comments.size > 0 -%}
+                {%- include 'blog-comments' -%}
+                {%- endif -%}
+
+                {%- if paginate.pages > 1 -%}
+                <div class="comment-pagination">
+                  {% include 'pagination' %}
+                </div>
+                {%- endif -%}
+              </div>
+              {%- endpaginate -%}
+              {%- endif -%}
+            </div>
+              {%- include 'blog-comment-form' -%}
+          </div>
+          <!-- blog-details-wrapper end -->
+        </div>
+      </div>
+      
+      {%- unless section.settings.sidebar_handle == 'without_sidebar' -%}
+      <div class="col-lg-3 col-12">
+        {% include 'blog-sidebar' %}
+      </div>
+      {%- endunless -%}
+      
+    </div>
+  </div>
+  <!-- content-wraper end -->
+
+
+
+<style>
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+
+
+
+{% schema %}
+  {
+    "name": "Article Page",
+    "settings": [
+		{
+			"type": "header",
+			"content": "Comment Box"
+		},
+		{
+			"type": "image_picker",
+			"id": "commentator_image",
+			"label": "Comment Thumb Image",
+			"info": "Recommended Size: 100 x 100px"
+		},
+		{
+			"type": "text",
+			"id": "comment_post_limit_handle",
+			"label": "How Many Comment Post Show",
+			"default": "5"
+		},
+		{
+			"type": "header",
+			"content": "Comment Form"
+		},
+        {
+          "type": "textarea",
+          "id": "comment_description",
+          "label": "Commend Description Bottom",
+          "default": "Your email address will not be published" 
+        },
+        {
+          "type": "text",
+          "id": "text_area_title",
+          "label": "Textarea Label",
+          "default": "Comment" 
+        },
+        {
+          "type": "text",
+          "id": "text_name_title",
+          "label": "Name Label",
+          "default": "Name" 
+        },
+        {
+          "type": "text",
+          "id": "text_email_title",
+          "label": "Email Label",
+          "default": "Email" 
+        },
+		{
+			"type": "header",
+			"content": "Article Sidebar"
+		},
+		{
+			"type": "radio",
+			"id": "sidebar_handle",
+			"label": "Sidebar Position -",
+			"options": [
+				{
+					"label": "Left Sidebar",
+					"value": "left_sidebar_handle"
+				},
+				{
+					"label": "Right Sidebar",
+					"value": "right_sidebar_handle"
+				},
+				{
+					"label": "Without Sidebar",
+					"value": "without_sidebar"
+				}
+			],
+			"default": "left_sidebar_handle"
+		}
+	],
+	 "blocks":[
+		{
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+        },
+	    {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+        },
+	    {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+        },
+		{
+          "type": "search",
+          "name": "Search",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "wedget_title",
+              "label": "Title",
+              "default": "Search"
+            }
+          ]
+       },
+	   {
+          "type": "recent_post",
+          "name": "Recent Post",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "recent_post_title",
+              "label": "Recent Post Title",
+              "default": "Recent Post"
+			},
+            {
+              "type": "range",
+              "id": "recent_post_limit_handle",
+              "min": 2,
+              "max": 10,
+              "step": 1,
+              "label": "Post Limit",
+              "default": 3
+            }
+          ]
+       },
+	   {
+          "type": "archive",
+          "name": "Archive",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "archive_title",
+              "label": "Archive Title",
+              "default": "Archive"
+            }
+          ]
+       },
+	   {
+          "type": "tag",
+          "name": "Tag",
+		  "limit": 1,
+          "settings": [
+            {
+              "type": "text",
+              "id": "blog_tags_title",
+              "label": "Tags Title",
+              "default": "Tags"
+			},
+            {
+              "type": "range",
+              "id": "blog_tags_list_limit_handle",
+              "min": 5,
+              "max": 20,
+              "step": 1,
+              "label": "Tag Limit",
+              "default": 10
+            }
+          ]
+       },
+	   {
+          "type": "menu",
+          "name": "Menu",
+          "settings": [
+            {
+              "type": "text",
+              "id": "menu_title",
+              "label": "Menu Title",
+              "default": "Custom Menu"
+            },
+			{
+              "type": "link_list",
+              "id": "menu_handle",
+              "label": "Menu"
+            }
+          ]
+       }
+	]
+  }
+{% endschema %}

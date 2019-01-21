@@ -1,0 +1,78 @@
+
+<!-- shop-top-bar start -->
+<div class="shop-top-bar">
+  <div class="shop-bar-inner">
+    {%- if section.settings.tab_bar_enable -%}
+    <div class="product-view-mode">
+      <!-- shop-item-filter-list start -->
+      <ul class="shop-item-filter-list">
+        <li>
+          <a class="change-view{% unless template contains 'list' %} change-view--active{% endunless %}"  data-view="grid" title="{{ 'collections.general.grid_view' | t }}"><i class="fa fa-th"></i></a>
+        </li>
+        <li>
+          <a class="change-view{% if template contains 'list' %} change-view--active{% endif %}"  data-view="list" title="{{ 'collections.general.list_view' | t }}"><i class="fa fa-th-list"></i></a>
+        </li>
+      </ul>
+      <!-- shop-item-filter-list end -->
+    </div>
+     {%- endif -%}
+    
+    {%- if section.settings.showing_product_counter_enable -%}
+    {% assign showing_title = section.settings.showing_title_handle | split: "|" %}
+    <div class="toolbar-amount">
+      <span>{{ showing_title | slice: 0 }} 
+    {{ paginate.current_offset | plus: 1 }} - {{ paginate_final }} 
+    {{ showing_title | slice: 1 }} 
+    {{ paginate.items }} 
+    {{ showing_title | slice: 2 }}</span>
+    </div>
+  </div>
+  {%- endif -%}
+  
+  
+  {%- if section.settings.short_by_enable -%}
+  <!-- product-select-box start -->
+  <div class="product-select-box">
+    <div class="product-short">
+      <label for="SortBy">{{ 'collections.sorting.title' | t }}</label>
+      <select name="SortBy" id="SortBy">
+        <option value="manual">{{ 'collections.sorting.featured' | t }}</option>
+        <option value="best-selling">{{ 'collections.sorting.best_selling' | t }}</option>
+        <option value="title-ascending">{{ 'collections.sorting.az' | t }}</option>
+        <option value="title-descending">{{ 'collections.sorting.za' | t }}</option>
+        <option value="price-ascending">{{ 'collections.sorting.price_ascending' | t }}</option>
+        <option value="price-descending">{{ 'collections.sorting.price_descending' | t }}</option>
+        <option value="created-descending">{{ 'collections.sorting.date_descending' | t }}</option>
+        <option value="created-ascending">{{ 'collections.sorting.date_ascending' | t }}</option>
+      </select>
+    </div>
+  </div>
+  <!-- product-select-box end -->
+  {%- endif -%}
+</div>
+<!-- shop-top-bar end -->
+
+
+
+
+<script>
+  Shopify.queryParams = {};
+  if (location.search.length) {
+    for (var aKeyValue, i = 0, aCouples = location.search.substr(1).split('&'); i < aCouples.length; i++) {
+      aKeyValue = aCouples[i].split('=');
+      if (aKeyValue.length > 1) {
+        Shopify.queryParams[decodeURIComponent(aKeyValue[0])] = decodeURIComponent(aKeyValue[1]);
+      }
+    }
+  }
+
+  $(function() {
+    $('#SortBy')
+    .val('{{ collection.sort_by | default: collection.default_sort_by }}')
+         .bind('change', function() {
+      Shopify.queryParams.sort_by = jQuery(this).val();
+      location.search = jQuery.param(Shopify.queryParams);
+    }
+    );
+  });
+</script>

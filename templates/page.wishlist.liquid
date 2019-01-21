@@ -1,0 +1,31 @@
+<div class="customer-page theme-default-margin">
+  <div class="container">
+    <div class="wishlist-page">
+      {% if customer %}
+      <div class="full-width-container wishlist-container">
+        <!-- Product Tile Grid -->
+        <div class="wishlist-grid row">
+          {% for product in collections.all.products %}
+          {% include 'wishlist-grid-item' %}
+          {% endfor %}
+          <div class="wishlist-grid--empty-list">
+            <div class="empty-list--info">
+              <h1 class="empty-list--text black">{{ settings.wishlist_empty_title }}</h1>
+              <p>{{ 'cart.general.continue_browsing_html' | t }}</p>
+            </div>
+          </div>
+        </div>
+        <!-- Loader -->
+        <div class="wishlist-loader" style="display: none;">
+          <p class="wishlist-loader--text">Loading...</p>
+        </div>
+      </div>
+      {% else %}
+      <div class="login-wishlist">
+        <h2 class="">{{ settings.login_request_title }}</h2>
+        <a class="theme-default-button" class="" href="/account/login">{{ 'layout.customer.log_in' | t }}</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

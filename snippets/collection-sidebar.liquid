@@ -1,0 +1,258 @@
+
+<div class="shop-sidebar"> 
+
+  {% for block in section.blocks %}
+  {% case block.type %}
+
+  {% when 'category' %}
+
+  <!--sidebar-categores-box start  -->
+  <div class="sidebar-categores-box">
+    {%- if block.settings.wedget_title != '' -%}
+    <div class="sidebar-title">
+      <h2>{{ block.settings.wedget_title }}</h2>
+    </div>
+    {%- endif -%}
+    <!-- category-sub-menu start -->
+    <div class="category-sub-menu">
+      <ul>
+        {% assign category_list_limit = block.settings.categories_list_limit_hanlde %}
+        {% for category in collections limit: category_list_limit %}
+
+        <li class="has-sub {% if collection and collection.handle == category.handle %}active{% endif %}"><a href="#">{{ category.title }}</a>
+
+          <ul>
+
+            {% assign product_limit = block.settings.product_limit_handle %}
+            {% for product in category.products limit: product_limit %}
+            <li><a href="{{ product.url }}">{{ product.title }}</a></li>
+            {% endfor %}
+
+
+          </ul>
+
+        </li>
+
+        {% endfor %}
+
+      </ul>
+    </div>
+    <!-- category-sub-menu end -->
+  </div>
+  <!--sidebar-categores-box end  -->
+
+  {% when 'search' %}
+  <!--sidebar-categores-box start  -->
+  <div class="sidebar-categores-box">
+    <!-- filter-sub-area start -->
+    <div class="filter-sub-area">
+      {%- if block.settings.wedget_title != '' -%}
+      <h5 class="filter-sub-titel">{{ block.settings.wedget_title }}</h5>
+      {%- endif -%}
+      <div class="size-checkbox">
+        <form action="/search" method="get" role="search">
+          <input type="hidden" name="type" value="product">
+          <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}" aria-label="{{ 'general.search.placeholder' | t }}">
+          <button type="submit">
+            <span>{{ 'general.search.submit' | t }}</span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <!-- filter-sub-area end -->
+
+  </div>
+  <!--sidebar-categores-box end  --> 
+
+    {% when 'vendor' %}
+  <!--sidebar-categores-box start  -->
+  <div class="sidebar-categores-box">
+    <!-- filter-sub-area start -->
+    <div class="filter-sub-area">
+      {%- if block.settings.wedget_title != '' -%}
+      <h5 class="filter-sub-titel">{{ block.settings.wedget_title }}</h5>
+      {%- endif -%}
+      <div class="size-checkbox">
+        <ul>
+          {% assign vendors_list_limit = block.settings.vendors_list_limit_hanlde %}
+          {% for vendor in shop.vendors limit: vendors_list_limit %}
+          <li class="{% if collection.current_vendor == vendor %}active{% endif %}"><a href="{{ vendor | url_for_vendor }}">{{ vendor }}</a></li> 
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- filter-sub-area end -->
+
+  </div>
+  <!--sidebar-categores-box end  --> 
+
+  
+    {% when 'type' %}
+  <!--sidebar-categores-box start  -->
+  <div class="sidebar-categores-box">
+    <!-- filter-sub-area start -->
+    <div class="filter-sub-area">
+      {%- if block.settings.wedget_title != '' -%}
+      <h5 class="filter-sub-titel">{{ block.settings.wedget_title }}</h5>
+      {%- endif -%}
+      <div class="size-checkbox">
+        <ul>
+          {% assign types_list_limit = block.settings.types_list_limit_hanlde %}
+          {% for type in shop.types limit: types_list_limit %}
+          {%- if type != '' -%}
+          <li class="{% if collection.current_type == type %}active{% endif %}"><a href="{{ type | url_for_type }}">{{ type }}</a></li> 
+          {%- endif -%}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- filter-sub-area end -->
+
+  </div>
+  <!--sidebar-categores-box end  --> 
+
+  
+    {% when 'size' %}
+  <!--sidebar-categores-box start  -->
+  <div class="sidebar-categores-box">
+    <!-- filter-sub-area start -->
+    <div class="filter-sub-area">
+      {%- if block.settings.wedget_title != '' -%}
+      <h5 class="filter-sub-titel">{{ block.settings.wedget_title }}</h5>
+      {%- endif -%}
+      <div class="size-checkbox">
+        <ul>
+          {% assign tags = block.settings.size_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' %}
+          {% assign size_list_limit = block.settings.size_list_limit_hanlde %}
+
+          {% for t in tags limit: size_list_limit %}
+          {% assign tag = t | strip %}
+          {%- if current_tags contains tag -%}
+          <li class="active"><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+          {%- elsif collection.all_tags contains tag -%}
+          <li><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+          {%- endif -%}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- filter-sub-area end -->
+  </div>
+  <!--sidebar-categores-box end  -->     
+
+
+  
+    {% when 'color' %}
+  <!--sidebar-categores-box start  -->
+  <div class="sidebar-categores-box">
+    <!-- filter-sub-area start -->
+    <div class="filter-sub-area">
+      {%- if block.settings.wedget_title != '' -%}
+      <h5 class="filter-sub-titel">{{ block.settings.wedget_title }}</h5>
+      {%- endif -%}
+      <div class="color-categoriy">
+        <ul>
+          {% assign tags = block.settings.color_picker | replace: ', ', ',' | replace: ' ,', ',' | split: ',' %}
+          {% assign colors_list_limit = block.settings.colors_list_limit_hanlde %}
+
+          {% for t in tags limit: colors_list_limit %}
+          {% assign tag = t | strip %}
+          {%- if current_tags contains tag -%}
+          <li class="{{ tag }} active" style="background: {{ tag }} no-repeat center; background-size: initial;"><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+          {%- elsif collection.all_tags contains tag -%}
+          <li class="{{ tag }}" style="background: {{ tag }} no-repeat center; background-size: initial;"><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+          {%- endif -%}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- filter-sub-area end -->
+  </div>
+  <!--sidebar-categores-box end  -->  
+
+  
+      {% when 'tag' %}
+  <!--sidebar-categores-box start  -->
+  <div class="sidebar-categores-box">
+    <!-- filter-sub-area start -->
+    <div class="filter-sub-area">
+      {%- if block.settings.wedget_title != '' -%}
+      <h5 class="filter-sub-titel">{{ block.settings.wedget_title }}</h5>
+      {%- endif -%}
+      <div class="size-checkbox">
+        <ul>
+           {% assign tags_list_limit = block.settings.tags_list_limit_hanlde %}
+          {% for tag in collection.tags limit: tags_list_limit %}
+          {%- if current_tags contains tag -%}
+          <li class="active"><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+          {%- else -%}
+          <li><a href="/collections/all/{{ tag | handle }}">{{ tag }}</a></li>
+          {%- endif -%}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- filter-sub-area end -->
+  </div>
+  <!--sidebar-categores-box end  -->  
+  
+    {% when 'menu' %}
+  <!--sidebar-categores-box start  -->
+  <div class="sidebar-categores-box">
+    <!-- filter-sub-area start -->
+    <div class="filter-sub-area">
+      {%- if block.settings.wedget_title != '' -%}
+      <h5 class="filter-sub-titel">{{ block.settings.wedget_title }}</h5>
+      {%- endif -%}
+      <div class="size-checkbox">
+        <ul>
+          {% assign menu = block.settings.menu_handle %}
+          {% for link in linklists[menu].links %}
+          <li class="{% if link.active %}active{% endif %}"><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <!-- filter-sub-area end -->
+  </div>
+  <!--sidebar-categores-box end  -->  
+
+
+
+
+  {% when 'banner' %}
+  <!-- shop-banner start -->
+  <div class="shop-banner">
+    {%- if block.settings.wedget_title != '' -%}
+    <div class="sidebar-title">
+      <h2>{{ block.settings.wedget_title }}</h2>
+    </div>
+    {%- endif -%}
+    <div class="single-banner">
+      {% if block.settings.banner_image != blank and block.settings.banner_image_url != blank %}
+      <a href="{{ block.settings.banner_image_url }}">
+        <img src="{{ block.settings.banner_image | img_url: 'grande' }}" alt="{{ block.settings.banner_image.alt }}">
+      </a>
+      {% elsif block.settings.banner_image != blank %}
+      <img src="{{ block.settings.banner_image | img_url: 'grande' }}" alt="{{ block.settings.banner_image.alt }}">
+      {% else %}
+      <img src="https://dummyimage.com/600x600/ccc/fff.jpg&text=Banner+image" alt="image">
+      {% endif %}
+    </div>
+  </div>
+  <!-- shop-banner end -->
+
+
+
+  {% endcase %}
+  {% endfor %}
+
+</div>
+
+
+
+
+
+<script>
+  $(".size-checkbox li.active a").removeAttr("href");
+</script>

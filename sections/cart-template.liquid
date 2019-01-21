@@ -1,0 +1,515 @@
+{%- include 'bold-cart' -%}
+
+<!-- content-wraper start -->
+<div class="content-wraper" id="section-{{ section.id }}">
+  <div class="container">
+        {%- if cart.item_count > 0 -%}
+<div id="shappify-qty-cart-msg"></div>
+    <form action="/cart" method="post" enctype="multipart/form-data" novalidate>
+    <div class="row">
+      <div class="col-12">
+        <div  class="cart-table">
+          <div class="table-content table-responsive">
+            <table class="table table-hover">
+              
+              <thead>
+                <tr>
+                  <th class="plantmore-product-thumbnail">{{ section.settings.table_image_title }}</th>
+                  <th class="cart-product-name">{{ section.settings.table_product_title }}</th>
+                  <th class="plantmore-product-price">{{ section.settings.table_price_title }}</th>
+                  <th class="plantmore-product-quantity">{{ section.settings.table_quantity_title }}</th>
+                  <th class="plantmore-product-subtotal">{{ section.settings.table_total_title }}</th>
+                  <th class="plantmore-product-remove">{{ section.settings.table_reomove_title }}</th>
+                </tr>
+              </thead>
+              
+
+              <tbody>
+                
+                {% for item in cart.items %}
+{%- include 'bold-cart-item' with item -%}
+                <tr>
+                  <td class="plantmore-product-thumbnail"><a href="{{ item.url }}"><img src="{{ item | img_url: 'compact' }}" alt="{{ item.title | escape }}" /></a></td>
+                  <td class="plantmore-product-name">
+                    <a href="{{ item.url }}">{{ item.product.title }}</a>
+                    {%- unless item.variant.title contains 'Default' -%}
+                    <span>{{ item.variant.title }}</span>
+                    {%- endunless -%}
+                    {% if section.settings.cart_vendor_enable %}
+                    <p>{{ item.vendor }}</p>
+                    {% endif %}
+                  </td>
+                  <td class="plantmore-product-price"><span class="amount">{{ bold_item_price | money }}</span></td>
+                  <td class="plantmore-product-quantity">
+                    <input type="text" value="{{ item.quantity }}" name="updates[]" />
+                  </td>
+                  <td class="product-subtotal"><span class="amount">{{ bold_item_line_price | money }}</span></td>
+                  <td class="plantmore-product-remove"><a href="/cart/change?line={{ forloop.index }}&amp;quantity=0"><i class="fa fa-close"></i></a></td>
+                </tr>
+                {% endfor %}
+
+              </tbody>
+
+              
+            </table>
+          </div>
+          <div class="row">
+            
+            <div class="col-md-8">
+              <div class="coupon-all">
+                
+                <div class="coupon2">
+                  <input class="submit btn" value="{{ section.settings.update_button_title }}" type="submit">
+                  <a href="/collections/all" class="btn continue-btn">{{ section.settings.continue_shopping_title }}</a>
+                  <a href="/cart/clear" class="btn continue-btn">{{ section.settings.clear_cart_title }}</a>
+                </div>
+
+               
+                
+                <div class="coupon">
+                  {%- if section.settings.cart_feature == 'cart_note' -%}
+                  <div class="cart-coupon">
+                    <h3>{{ section.settings.cart_note_title }}</h3>
+                    <textarea name="note" class="input-full" id="CartSpecialInstructions">{{ cart.note }}</textarea>
+                  </div>
+                  {%- endif -%}
+                  {%- if section.settings.cart_feature == 'shipping_calculator' -%}
+                  {%- include 'cart-shipping-calculator' -%}
+                  {%- endif -%}
+                </div>
+                
+              </div>
+            </div>
+            
+            <div class="col-md-4 ml-auto">
+              <div class="cart-page-total">
+                <h2>{{ section.settings.cart_total_heading_title }}</h2>
+                <ul>
+                  <li>{{ section.settings.cart_subtotal_title }} <span id="bk-cart-subtotal-price">{{ bold_cart_total_price | money }}</span></li>
+                  <li>{{ section.settings.cart_total_title }} <span id="bk-cart-subtotal-price">{{ bold_cart_total_price | money }}</span></li>
+                </ul>
+                 {%- if cart.total_discounts > 0 -%}
+                  {% assign savings = cart.total_discounts | money %}
+                  <p>
+                    <span class="cart-subtotal__savings"><em>{{ 'cart.general.savings_html' | t: price: savings }}</em></span>
+                  </p>
+                  {%- endif -%}
+                <a href="/checkout" class="proceed-checkout-btn">{{ section.settings.checkout_button_title }}</a>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+    
+    {%- else -%}
+    <div class="row">
+      <div class="col-lg-12 col-12">
+        <div class="empty-cart-page">
+          <h2>{{ section.settings.shopping_cart_title }}</h2>
+          <h3>{{ section.settings.cart_empty_title }}</h3>
+          <p>{{ section.settings.cart_continue_title }} <a href="/collections/all">{{ section.settings.here_title }}</a></p>
+        </div>
+      </div>
+    </div>
+    {%- endif -%}
+    
+  </div>
+</div>
+<!-- content-wraper end -->
+
+<style>
+  #section-{{ section.id }}{
+    {%- for block in section.blocks -%}
+    {%- case block.type -%}
+    {%- when 'section_margin' -%}
+    margin-top: {{ block.settings.section_margin_top }}px;
+    margin-bottom: {{ block.settings.section_margin_bottom }}px;
+    {%- when 'section_padding' -%}
+    padding-top: {{ block.settings.section_padding_top }}px;
+    padding-bottom: {{ block.settings.section_padding_bottom }}px;
+    {%- when 'section_background' -%}    
+    background: {{ block.settings.section_bg_color }} 
+      {%- if block.settings.section_bg_image -%}url("{{ block.settings.section_bg_image | img_url: 'master' }}"){%- endif -%} no-repeat scroll center center / cover;
+    {%- endcase -%}
+    {%- endfor -%}
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {% case block.type %}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_md }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_md }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_md }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_md }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+  @media (max-width: 767px) {
+    #section-{{ section.id }}{
+      {%- for block in section.blocks -%}
+      {%- case block.type -%}
+      {%- when 'section_margin' -%}
+      margin-top: {{ block.settings.section_margin_top_xs }}px;
+      margin-bottom: {{ block.settings.section_margin_bottom_xs }}px;
+      {%- when 'section_padding' -%}
+      padding-top: {{ block.settings.section_padding_top_xs }}px;
+      padding-bottom: {{ block.settings.section_padding_bottom_xs }}px;
+      {%- endcase -%}
+      {%- endfor -%}
+    }
+  }
+</style>
+
+{% schema %}
+  {
+    "name": "Cart Page",
+    "settings": [
+		{
+			"type": "header",
+			"content": "Table Heading Title"
+		},
+		{
+			"type": "text",
+			"id": "table_image_title",
+			"label": "Image Heading Title",
+			"default": "Image"
+		},
+		{
+			"type": "text",
+			"id": "table_product_title",
+			"label": "Product Heading Title",
+			"default": "Product"
+		},
+		{
+			"type": "text",
+			"id": "table_price_title",
+			"label": "Price Heading Title",
+			"default": "Price"
+		},
+		{
+			"type": "text",
+			"id": "table_quantity_title",
+			"label": "Quantity Heading Title",
+			"default": "Quantity"
+		},
+		{
+			"type": "text",
+			"id": "table_total_title",
+			"label": "Total Heading Title",
+			"default": "Total"
+		},
+		{
+			"type": "text",
+			"id": "table_reomove_title",
+			"label": "Remove Heading Title",
+			"default": "Remove"
+		},
+		{
+			"type": "header",
+			"content": "Button Title"
+		},
+		{
+			"type": "text",
+			"id": "update_button_title",
+			"label": "Update Button Title",
+			"default": "Update Cart"
+		},
+		{
+			"type": "text",
+			"id": "continue_shopping_title",
+			"label": "Continue Shopping Button Title",
+			"default": "Continue Shopping"
+		},
+		{
+			"type": "text",
+			"id": "clear_cart_title",
+			"label": "Clear Cart Button Title",
+			"default": "Clear Cart"
+		},
+		{
+			"type": "checkbox",
+			"id": "cart_vendor_enable",
+			"label": "Show Product Vendor",
+			"default": false
+		},
+		{
+			"type": "header",
+			"content": "Cart Note / Shipping Calculator"
+		},
+		{
+            "type": "radio",
+            "id": "cart_feature",
+            "label": "Show Any One",
+            "options": [
+                {
+                    "value": "shipping_calculator",
+                    "label": "Shipping Calculator"
+                },
+                {
+                    "value": "cart_note",
+                    "label": "Cart Note"
+                }
+            ],
+            "default": "shipping_calculator"
+        },
+		{
+			"type": "text",
+			"id": "shipping_calculator_heading",
+			"label": "Shipping Calculator Title",
+			"default": "Get shipping estimates"
+		},
+		{
+			"type": "text",
+			"id": "shipping_calculator_button_title",
+			"label": "Shipping Calculator Button Title",
+			"default": "Calculate shipping"
+		},
+		{
+			"type": "text",
+			"id": "cart_note_title",
+			"label": "Cart Note Title",
+			"default": "Special instructions for seller"
+		},
+		{
+			"type": "header",
+			"content": "Cart Totals"
+		},
+		{
+			"type": "text",
+			"id": "cart_total_heading_title",
+			"label": "Cart Total Heading Title",
+			"default": "Cart Totals"
+		},
+		{
+			"type": "text",
+			"id": "cart_subtotal_title",
+			"label": "Cart Subtotal Title",
+			"default": "Subtotal"
+		},
+		{
+			"type": "text",
+			"id": "cart_total_title",
+			"label": "Cart Total Title",
+			"default": "Total"
+		},
+		{
+			"type": "text",
+			"id": "checkout_button_title",
+			"label": "Checkout Button Title",
+			"default": "Proceed to Checkout"
+		},
+		{
+			"type": "header",
+			"content": "Cart Empty"
+		},
+		{
+			"type": "text",
+			"id": "shopping_cart_title",
+			"label": "Shopping Cart Title",
+			"default": "Shopping Cart"
+		},
+		{
+			"type": "text",
+			"id": "cart_empty_title",
+			"label": "Cart Empty Title",
+			"default": "Your cart is currently empty."
+		},
+		{
+			"type": "text",
+			"id": "cart_continue_title",
+			"label": "Continue Browsing Title",
+			"default": "Continue browsing"
+		},
+		{
+			"type": "text",
+			"id": "here_title",
+			"label": "Here Title",
+			"default": "here"
+		}
+	],
+	"blocks":[
+	   {
+          "type": "section_margin",
+          "name": "Section Margin",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_margin_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Margin Bottom",
+			  "unit": "px",
+			  "default": 0
+			}
+          ]
+       },
+	   {
+          "type": "section_padding",
+          "name": "Section Padding",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "header",
+			  "content": "Large/Desktop Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 100
+			},
+			{
+			  "type": "header",
+			  "content": "Tablate Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_md",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 80
+			},
+			{
+			  "type": "header",
+			  "content": "Mobile Device"
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_top_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Top",
+			  "unit": "px",
+			  "default": 0
+			},
+			{
+			  "type": "range",
+			  "id": "section_padding_bottom_xs",
+			  "min": 0,
+			  "max": 150,
+			  "step": 5,
+			  "label": "Padding Bottom",
+			  "unit": "px",
+			  "default": 60
+			}
+          ]
+       },
+	   {
+          "type": "section_background",
+          "name": "Section Background",
+		  "limit": 1,
+          "settings": [
+            {
+			  "type": "image_picker",
+			  "id": "section_bg_image",
+			  "label": "BG Image"
+			},
+			{
+			  "type": "color",
+			  "id": "section_bg_color",
+			  "label": "BG Color",
+			  "default": "#ffffff"
+			}
+          ]
+       }
+	]
+  }
+{% endschema %}

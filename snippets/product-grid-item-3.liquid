@@ -1,0 +1,9 @@
+
+
+
+<!-- categories-list-post-item start -->
+<div class="categories-list-post-item">
+  <img src="{{ product.featured_image.src | img_url: '1024x1024' }}" alt="{{ product.featured_image.alt | escape }}">
+  <a href="{{ product.url | within: collection }}" class="category-inner">{{ product.title }}</a>
+</div>
+<!-- categories-list-post-item end -->

@@ -1,0 +1,119 @@
+{% assign itemStyle = '' %}{% if cart.item_count == 0 %}{% assign itemStyle = ' style="display:none;"' %}{% endif %}
+{% assign itemEmpty = '' %}{% if cart.item_count == 0 %}{% assign itemEmpty = ' style="display:block;"' %}{% endif %}
+{% assign itemCount = '' %}{% if cart.item_count == 1 %}{% assign itemCount = ' style="display:block;"' %}{% endif %}
+{% assign itemCount2 = '' %}{% if cart.item_count > 1 %}{% assign itemCount2 = ' style="display:block;"' %}{% endif %}
+
+{% comment %}
+{%- assign item_count = cart.item_count -%}
+<span class="bigcounter">{{ item_count }}</span>
+<span class="item-single-item-count" {{ itemCount }}>{{ section.settings.cart_item_title }}</span> 
+<span class="item-multiple-item-count" {{ itemCount2 }}>{{ section.settings.cart_items_title }}</span>
+<span class="cart-empty-title" {{ itemEmpty }}>{{ section.settings.cart_items_title }}</span>
+|
+<span class="shopping-cart__total">{{ cart.total_price | money }}</span>
+
+
+<ul>  
+  <li class="cart-empty-title" {{ itemEmpty }}>
+    <h3>{{ 'cart.general.empty' | t }}</h3>
+  </li>
+  <li class="single-product-cart single-cart-item-loop" {{ itemStyle  }}>
+    {% for item in cart.items %}
+    <div class="cart-single-item">
+      <div class="cart-img">
+        <a href="{{ item.url }}"><img src="{{ item | img_url: 'small' }}" alt=""></a>
+      </div>
+      <div class="cart-title">
+        <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+        <span>{{ section.settings.quantity_itltle }}  {{ item.quantity }} x {{ item.price | money }}</span>
+      </div>
+      <div class="cart-delete">
+        <a href="javascript:void(0);" onclick="Shopify.removeItem({{ item.variant.id }})">Remove</a>
+      </div>
+    </div>
+    {% endfor %}
+  </li>
+  <li class="single-product-cart mini-cart-action" {{ itemStyle  }}>
+    <div class="cart-total">
+      <h4>{{ 'cart.label.total' | t }}: <span class="shopping-cart__total">{{ cart.total_price | money }}</span></h4>
+    </div>
+  </li>
+  <li class="single-product-cart mini-cart-action" {{ itemStyle  }}>
+    <div class="cart-checkout-btn">
+      <a class="btn-hover cart-btn-style" href="/cart">{{ section.settings.view_cart_title }}</a>
+      <a class="no-mrg btn-hover cart-btn-style" href="/checkout">{{ section.settings.checkout_title }}</a>
+    </div>
+  </li>
+</ul>
+{% endcomment %}
+
+
+
+<div class="btn-group">
+  {%- assign item_count = cart.item_count -%}
+  <!-- Mini Cart Button start -->
+  <button class="dropdown-toggle mini-cart">
+    <i class="fa fa-shopping-cart"></i> 
+    {{ section.settings.cart_item_title }} 
+    (<span class="bigcounter">{{ item_count }}</span>)
+  </button>
+  <!-- Mini Cart button end -->
+
+  <!-- Mini Cart wrap start -->
+  <div class="dropdown-menu mini-cart-wrap">
+
+    <div class="shopping-cart-content">
+      
+      <div class="cart-empty-title" {{ itemEmpty }}>
+        <h3>{{ 'cart.general.empty' | t }}</h3>
+      </div>
+      
+      <div class="single-product-cart" {{ itemStyle  }}>
+        <ul class="mini-cart-content">
+          <div class="single-cart-item-loop">
+            {% for item in cart.items %}
+            <!-- Mini-Cart-item start -->
+            <li class="mini-cart-item">
+              <div class="mini-cart-product-img">
+                <a href="{{ item.url }}"><img src="{{ item | img_url: 'small' }}" alt="{{ item.alt }}"></a>
+                <span class="product-quantity">{{ item.quantity }}x</span>
+              </div>
+              <div class="mini-cart-product-desc">
+                <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                <div class="price-box">
+                  <span class="new-price">{{ item.price | money }}</span>
+                </div>
+              </div>
+              <div class="remove-from-cart">
+                <a href="javascript:void(0);" onclick="Shopify.removeItem({{ item.variant.id }})" title="Remove"><i class="fa fa-trash"></i></a>
+              </div>
+            </li>
+            <!-- Mini-Cart-item end -->
+            {% endfor %}
+          </div>
+          <li>
+            <!-- shopping-cart-total start -->
+            <div class="shopping-cart-total">
+
+              <h4>{{ 'cart.label.total' | t }} : <span class="shopping-cart__total">{{ cart.total_price | money }}</span></h4>
+
+            </div>
+            <!-- shopping-cart-total end -->
+          </li>
+
+          <li>   
+            <!-- shopping-cart-btn start -->
+            <div class="shopping-cart-btn">
+              <a href="/checkout">{{ section.settings.checkout_title }}</a>
+            </div>
+            <!-- shopping-cart-btn end -->
+          </li>
+        </ul>
+      </div>
+      
+      
+    </div>
+
+  </div>
+  <!-- Mini Cart wrap End -->
+</div>

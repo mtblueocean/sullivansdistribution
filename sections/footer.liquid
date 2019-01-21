@@ -1,0 +1,355 @@
+
+
+<!-- Footer Aare Start -->
+<footer class="footer-area">
+  {% include 'footer-top' %}
+  {% include 'footer-bottom' %}
+</footer>
+<!-- Footer Aare End -->
+
+<style>
+.footer-area {
+    background:  {{ section.settings.footer_bg_color }};
+}
+</style>
+
+{% schema %}
+  {
+    "name": "Footer",
+    "settings": [
+		{
+          "type": "header",
+          "content": "Footer"
+	    },
+        {
+           "type": "header",
+           "content": "Background color"
+        }, 
+        {
+           "type": "color",
+           "id": "footer_bg_color",
+           "label": "Background Color",
+           "default": "#1D1D1D"
+        },
+		{
+          "type": "header",
+          "content": "Footer Top"
+	    },
+        {
+          "type": "checkbox",
+          "id": "footer_top_enable",
+          "label": "Footer Top Enable",
+          "default": true
+        },
+		{
+           "type": "header",
+           "content": "Section Padding"
+        },
+        {
+           "type": "text",
+           "id": "section_padding_top",
+           "label": "Section Padding Top",
+           "default": "50" ,
+           "info": "Defined in pixels. Do not add the 'px' unit."
+        },
+        {
+           "type": "text",
+           "id": "section_padding_bottom",
+           "label": "Section Padding Bottom",
+           "default": "100" ,
+           "info": "Defined in pixels. Do not add the 'px' unit."
+        },
+        {
+           "type": "header",
+           "content": "Background color"
+        }, 
+        {
+           "type": "color",
+           "id": "bg_color",
+           "label": "Background Color",
+           "default": "#1D1D1D"
+        },
+		{
+          "type": "header",
+          "content": "Footer Bottom"
+	    },
+        {
+          "type": "checkbox",
+          "id": "footer_bottom_enable",
+          "label": "Footer Bottom Enable",
+          "default": true
+        },
+		{
+           "type": "header",
+           "content": "Section Padding"
+        },
+        {
+           "type": "text",
+           "id": "section_padding_top_2",
+           "label": "Section Padding Top",
+           "default": "40" ,
+           "info": "Defined in pixels. Do not add the 'px' unit."
+        },
+        {
+           "type": "text",
+           "id": "section_padding_bottom_2",
+           "label": "Section Padding Bottom",
+           "default": "40" ,
+           "info": "Defined in pixels. Do not add the 'px' unit."
+        },
+        {
+           "type": "header",
+           "content": "Background color"
+        }, 
+        {
+           "type": "color",
+           "id": "bg_color_2",
+           "label": "Background Color",
+           "default": "#1D1D1D"
+        },
+        {
+           "type": "header",
+           "content": "B0rder"
+        }, 
+        {
+           "type": "color",
+           "id": "border_color",
+           "label": "Border Color",
+           "default": "#343434"
+        },
+		{
+          "type": "richtext",
+          "id": "copy_ritht_text",
+          "label": "CopyRight Text",
+		  "default": "<p>Copyright © 99 Shopify All Right Reserved.</p>"
+		},
+		{
+           "type": "header",
+           "content": "Payment"
+        },
+        {
+          "type": "image_picker",
+          "id": "payment_logo",
+          "label": "Payment Logo",
+          "info": "Recommended Size: 470 x 33px"
+        },
+        {
+          "type": "url",
+          "id": "payment_logo_url",
+          "label": "URL"
+        }
+    ],
+	"blocks": [
+		{
+          "type": "contact_information",
+          "name": "Information",
+          "settings": [
+				 {
+					"type": "text",
+					"id": "footer_info_coloum",
+					"label": "Footer Info Coloum Control",
+					"default": "4",
+                    "info": "Follow Bootstrap Column"
+				 },
+                 {
+                    "type": "header",
+                    "content": "Footer Logo"
+                 },
+                 {
+                    "type": "image_picker",
+                    "id": "footer_logo",
+                    "label": "Logo"
+                 },
+                 {
+                    "type": "header",
+                    "content": "Contact Address"
+                 },
+    			 {
+                  	"type": "text",
+                  	"id": "icon_title_1",
+                  	"label": "Icon",
+                  	"default": "home",
+                  	"info": "[See More Icon](https:\/\/fontawsome.com\/)"
+                 },
+			     {
+                      "type": "textarea",
+                      "id": "address_text",
+                      "label": "Address Text",
+                      "default": "123 Main Street, Anytown, CA 12345 - USA."
+			     },
+    			 {
+                  	"type": "text",
+                  	"id": "icon_title_2",
+                  	"label": "Icon",
+                  	"default": "phone",
+                  	"info": "[See More Icon](https:\/\/fontawsome.com\/)"
+                 },
+			     {
+                      "type": "textarea",
+                      "id": "phone_number",
+                      "label": "Phone Number",
+                      "default": "(0) 800 456 789"
+			     },
+    			 {
+                  	"type": "text",
+                  	"id": "icon_title_3",
+                  	"label": "Icon",
+                  	"default": "envelope-open-o",
+                  	"info": "[See More Icon](https:\/\/fontawsome.com\/)"
+                 },
+			     {
+                      "type": "textarea",
+                      "id": "email_address",
+                      "label": "Email",
+                      "default": "Contact@posthemes.com"
+				 },
+                 {
+                    "type": "header",
+                    "content": "Social Area"
+                 },
+                 {
+                    "type": "header",
+                    "content": "Social 1"
+                 },
+                 {
+                    "type": "text",
+                    "id": "social_icon_1",
+                    "label": "Icon",
+                    "default": "twitter",
+			  		"info": "[See More Icon](https:\/\/fontawesome.com\/icons)"
+                 },
+                 {
+                    "type": "url",
+                    "id": "social_icon_1_url",
+                    "label": "URL"
+                 },
+                 {
+                    "type": "header",
+                    "content": "Social 2"
+                 },
+                 {
+                    "type": "text",
+                    "id": "social_icon_2",
+                    "label": "Icon",
+                    "default": "rss",
+			  		"info": "[See More Icon](https:\/\/fontawesome.com\/icons)"
+                 },
+                 {
+                    "type": "url",
+                    "id": "social_icon_2_url",
+                    "label": "URL"
+                 },
+                 {
+                    "type": "header",
+                    "content": "Social 3"
+                 },
+                 {
+                    "type": "text",
+                    "id": "social_icon_3",
+                    "label": "Icon",
+                    "default": "google-plus",
+			  		"info": "[See More Icon](https:\/\/fontawesome.com\/icons)"
+                 },
+                 {
+                    "type": "url",
+                    "id": "social_icon_3_url",
+                    "label": "URL"
+                 },
+                 {
+                    "type": "header",
+                    "content": "Social 4"
+                 },
+                 {
+                    "type": "text",
+                    "id": "social_icon_4",
+                    "label": "Icon",
+                    "default": "facebook",
+			  		"info": "[See More Icon](https:\/\/fontawesome.com\/icons)"
+                 },
+                 {
+                    "type": "url",
+                    "id": "social_icon_4_url",
+                    "label": "URL"
+                 },
+                 {
+                    "type": "header",
+                    "content": "Social 5"
+                 },
+                 {
+                    "type": "text",
+                    "id": "social_icon_5",
+                    "label": "Icon",
+                    "default": "youtube",
+			  		"info": "[See More Icon](https:\/\/fontawesome.com\/icons)"
+                 },
+                 {
+                    "type": "url",
+                    "id": "social_icon_5_url",
+                    "label": "URL"
+                 }
+			     
+            ]
+      	},
+		{
+			"type": "footer_menu",
+			"name": "Menu",
+			"settings": [
+				  {
+					"type": "text",
+					"id": "footer_menu_coloum",
+					"label": "Menu Coloum Control",
+					"default": "2",
+                    "info": "Follow Bootstrap Column"
+				  },
+                  {
+                      "type": "text",
+                      "id": "footer_menu_title",
+                      "label": "Menu Title",
+					  "default": "Our company"
+                  },
+                  {
+                      "type": "link_list",
+                      "id": "footer_menu_handle",
+                      "label": "Select Menu"
+                  }
+				]
+		},
+		{
+          "type": "newslatter",
+          "name": "Newslatter",
+          "settings": [
+				 {
+					"type": "text",
+					"id": "newslatter_coloum",
+					"label": "Footer Newslatter Coloum Control",
+					"default": "4",
+                    "info": "Follow Bootstrap Column"
+				 },
+                 {
+                    "type": "text",
+                    "id": "newslatter_title",
+                    "label": "Newslatter Title",
+					"default": "Join Our Newsletter Now"
+                 },
+			     {
+                    "type": "textarea",
+                    "id": "newslatter_description",
+                    "label": "Newslatter Description",
+                    "default": "Get E-mail updates about our latest shop and special offers."
+			     },
+                 {
+                    "type": "header",
+                    "content": "Newslatter"
+                 },
+                 {
+                    "type": "text",
+                    "id": "newslatter_button_title",
+                    "label": "Button Title",
+					"default": "Submit"
+                 }
+            ]
+      	}
+	]
+  }
+
+{% endschema %}

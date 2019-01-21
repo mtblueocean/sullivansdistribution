@@ -1,0 +1,30 @@
+
+<!-- single-blog-area start -->
+<div class="single-blog-area">
+  <div class="blog-image">
+    <a class="article__featured-image" href="{{ article.url }}">
+      {{ article | img_url: '1024x1024' | img_tag: article.title }}
+    </a>
+  </div>
+  <div class="blog-contend">
+    <h3><a href="{{ article.url }}">{{ article.title }}</a></h3>
+    <div class="blog-date-categori">
+      <ul>
+		<li><a href="#"><i class="fa fa-user"></i> {{ article.author }} </a></li>
+        <li><a href="{{ article.url }}#comments"><i class="fa fa-comments"></i> {{ 'blogs.comments.with_count' | t: count: article.comments_count }} </a></li>
+      </ul>
+    </div>
+    <div class="post-description">
+      {% if article.excerpt.size > 0 %}
+      {{ article.excerpt }}
+      {% else %}
+      <p>{{ article.content | strip_html | truncatewords: 50 }}</p>
+      {% endif %}
+    </div>
+    <div class="blog-more-area">
+      <a href="{{ article.url }}" class="blog-btn btn">{{ 'blogs.article.read_more' | t }}</a>
+        {% include 'blog-share' %}
+    </div>
+  </div>
+</div>
+<!-- single-blog-area end -->

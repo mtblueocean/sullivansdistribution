@@ -1,0 +1,66 @@
+<!-- Header-bottom start -->
+<div class="header-bottom-area header-sticky" id="header-bottom-area">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-2 col-5">
+        <!-- logo start -->
+        <div class="logo">
+          {%- include 'header-logo' -%}
+        </div>
+        <!-- logo end -->
+      </div>
+      <div class="col-lg-7 d-none d-lg-block">
+        <!-- main-menu-area start -->
+        <div class="main-menu-area">
+          {% include 'main-menu' %}
+        </div>
+        <!-- main-menu-area End -->
+      </div>
+      <div class="col-lg-3 col-7">
+        <div class="header-bottom-right">
+          {% if section.settings.search_enable %}
+          <div class="block-search">
+            <div class="trigger-search"><i class="fa fa-search"></i> <span>{{ section.settings.search_title }}</span></div>
+            <div class="search-box main-search-active">
+              {% include 'search-bar' %}
+            </div>
+          </div>
+          {%  endif %}
+          
+          <div class="shoping-cart">
+            {%- include 'mini-cart' -%}
+          </div>
+          
+        </div>
+      </div>
+      <div class="col">
+        <!-- mobile-menu start -->
+        <div class="mobile-menu d-block d-lg-none"></div>
+        <!-- mobile-menu end -->
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Header-bottom end -->
+
+<style>
+  
+     #header-bottom-area.header-bottom-area{
+    padding-top:{{ section.settings.section_padding_top_2 }}px;
+  }
+  
+ #header-bottom-area.header-bottom-area{
+    padding-bottom:{{ section.settings.section_padding_bottom_2 }}px;
+  }
+ 
+  #header-bottom-area.header-bottom-area {
+    background: {{ section.settings.bg_color_2 }};
+}
+
+  
+  
+  </style>
+
+
+
+
