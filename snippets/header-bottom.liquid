@@ -31,6 +31,14 @@
             {%- include 'mini-cart' -%}
           </div>
 
+          <div class="account-icon">
+            {% if shop.customer_accounts_enabled and customer %}
+              <a href="/account/logout"><i class="fa fa-user-circle-o"></i></a>
+            {% else %}
+              <a href="/account/login"><i class="fa fa-user-circle-o"></i></a>
+            {% endif %}
+          </div>
+
           <div class="hamburger-menu">
             <!-- mobile-menu start -->
             <div class="mobile-menu d-block d-lg-none"></div>

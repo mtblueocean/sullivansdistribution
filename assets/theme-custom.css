@@ -68,6 +68,38 @@ ul ul, ul ol, ol ol, ol ul {
 button.mini-cart span {
   width: 110px;
 }
+@media screen and (max-width: 544px) {
+  button.mini-cart .cart-title {
+    display: none;
+  }
+}
+.account-icon {
+  padding-left: 15px;
+}
+.account-icon i {
+  font-size: 16px;
+}
+@media screen and (min-width: 545px) {
+  .account-icon {
+    display: none;
+  }
+}
+@media screen and (max-width: 544px) {
+  .header-area .order-1 {
+    display: none;
+  }
+  .header-area .order-2 {
+    width: 100%;
+  }
+  .header-area .order-2 .top-left-wrap {
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: initial;
+  }
+  .header-top .top-left-wrap .link-top li {
+    margin-right: 0;
+  }
+}
 .header-area .dropdown-menu.open {
   max-height: 200px;
   width: 210px;
