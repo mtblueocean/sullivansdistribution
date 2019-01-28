@@ -1216,12 +1216,8 @@ body.box-body {
 .header-top .top-left-wrap .link-top li {
   margin-right: 18px;
 }
-.header-top .top-left-wrap .link-top li a {
-  font-size: 16px;
-  line-height: 16px;
-}
 .header-top .top-left-wrap .link-top li a:hover{
-color:#fff;
+  color:#fff;
 }
 .header-top.bg-black {
   color: #ffffff;
@@ -1303,6 +1299,11 @@ color:#fff;
 .header-area .dropdown-menu.open {
   max-height: 200px;
   width: 120px;
+}
+@media screen and (max-width: 768px) {
+  .header-area .dropdown-menu.open {
+    width: 155px !important;
+  }
 }
 .header-area .dropdown-menu ul {
   background: #fff;
@@ -6044,8 +6045,9 @@ color:#fff;
 
 .setting-top>.dropdown-toggle:active {
   /*Without this, clicking will make it sticky*/
-    pointer-events: none;
+  pointer-events: none;
 }
+
 .header-area .dropdown-menu{width:210px;}
 
 .theme-logo {
@@ -6062,4 +6064,8 @@ color:#fff;
   .main-menu-area ul li{
     margin-right:15px;
   }
+}
+
+#tidio-chat {
+  opacity: 0;
 }

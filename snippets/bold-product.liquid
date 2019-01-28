@@ -4,7 +4,10 @@ Last updated: 2018-Oct-16
 
 Sets all the appropriate liquid variables for Bold Apps that affect the product.
 Creates an updated JSON object that takes all appropriate apps into account. Can mimic all three types of product objects that Shopify uses.
-When installing, use {%- include 'bold-product', output: 'json' -%} to replace {{ product | json }} in the theme's liquid code.
+When installing, use {%- include 'bold-product', output: 'json' -%} to replace 
+{%- include 'saw_product_json' with product -%}
+{{- saw_json -}}
+ in the theme's liquid code.
 Alternatively, use {%- include 'bold-product', output: 'json', escape: true -%} to replace {{ product | json | escape }} in the theme's liquid code.
 
 FLAGS:

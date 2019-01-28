@@ -3,13 +3,17 @@
 
   jQuery(document).ready(function(){
 
-    
     /*--
         Header dropdowns
     ---------------------------*/
     $(".dropdown-toggle").on("click", function() {
         $(this).toggleClass('open').next('.dropdown-menu').toggleClass('open');
         $(this).parents().siblings().find('.dropdown-menu, .dropdown-toggle').removeClass('open');
+    });
+
+    $("a.header-live-chat").on("click", function() {
+        $("#tidio-chat").css('opacity', 1);
+        tidioChatApi.open();
     });
 
     // Closing the dropdown by clicking in the menu button or anywhere in the screen
