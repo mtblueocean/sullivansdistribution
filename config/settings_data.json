@@ -272,7 +272,7 @@
               "icon_title_2": "phone",
               "phone_number": "(888)342-0096",
               "icon_title_3": "envelope-open-o",
-              "email_address": "sullivansdistribution@gmail.com",
+              "email_address": "info@sullivansdistribution.com",
               "social_icon_1": "twitter",
               "social_icon_1_url": "#",
               "social_icon_2": "rss",
@@ -1114,7 +1114,7 @@
             "type": "testimonial",
             "settings": {
               "author_image": "",
-              "author_description": "Working with Joel has allowed me to focus on what matters in my business while Sullivan Distibution takes care of growth.",
+              "author_description": "Working with Joel has allowed me to focus on what matters in my business while Sullivans Distibution takes care of growth.",
               "author_title": "Will Harkins"
             }
           },
@@ -1183,7 +1183,7 @@
               "service_coloum": "3",
               "service_icon": "cogs",
               "service_title": "Consulting & Expertise",
-              "service_description": "A detailed analysis of your product opportunity"
+              "service_description": "We provide a detailed analysis of your product opportunities"
             }
           },
           "1540623035389": {
@@ -1192,7 +1192,7 @@
               "service_coloum": "3",
               "service_icon": "search",
               "service_title": "Sourcing & Manufacturing",
-              "service_description": "We find the most suitable & affordable  manufacturers"
+              "service_description": "We'll find you the most suitable & affordable  manufacturers"
             }
           },
           "1544662920117": {
@@ -1201,7 +1201,7 @@
               "service_coloum": "3",
               "service_icon": "truck",
               "service_title": "Warehousing & Distribution",
-              "service_description": "We get your products on the shelves of retailers"
+              "service_description": "We'll warehouse and distribute your product direct to retailers"
             }
           },
           "1540623132956": {
@@ -1232,7 +1232,7 @@
               "service_coloum": "3",
               "service_icon": "tag",
               "service_title": "E-Commerce & Marketing",
-              "service_description": "Free shipping on all US order or order above $200"
+              "service_description": "We offer and market your product direct to consumers"
             }
           }
         },
@@ -1767,16 +1767,16 @@
           "button_title": "SEND MESSAGE",
           "bg_color": "#f2f2f2",
           "location_title": "Sullivans Distribution",
-          "location_description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ullam nam ex odio expedita, officia temporibus ipsum, placeat magni quibusdam sint, atque distinctio",
+          "location_description": "Have Questions? Please feel free to contact us directly by phone or email.",
           "store_icon_1": "fa-fax",
-          "store_description_1": "Address :  22 North Rd STE 202 Bloomingburg NY 12721",
+          "store_description_1": "22 North Rd STE 202 Bloomingburg NY 12721",
           "store_icon_2": "fa-phone",
-          "store_description_2": "info@sullivansdistribution.com",
+          "store_description_2": "(888)342-0096",
           "store_icon_3": "fa-envelope-o",
-          "store_description_3": "(718) 753 9280",
+          "store_description_3": "info@sullivansdistribution.com",
           "working_title": "Working hours",
-          "working_day": "Monday &ndash; Saturday:",
-          "working_time": "&nbsp;08AM &ndash; 6PM"
+          "working_day": "Monday &ndash; Thursday:",
+          "working_time": "<br>9am – 6pm<br><b>Friday: <\/b><br>9am - 12pm"
         }
       },
       "about-template": {
@@ -1800,12 +1800,12 @@
         "settings": {
           "about_main_enable": true,
           "about_image_enable": true,
-          "about_img": "shopify:\/\/shop_images\/warehouse-consulting_e66c668a-fe5a-4d8f-9b9b-79df3a467c16.jpg",
+          "about_img": "shopify:\/\/shop_images\/Wholesale_Distribution_and_Product_Sourcing.jpg",
           "about_content_enable": true,
-          "about_title": "Our company",
-          "about_description": "<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum ullam repellat mollitia odio aliquid, assumenda, quis, reprehenderit, fugit hic optio sit! Vitae id quisquam aperiam sint amet perspiciatis, praesentium quasi!<\/p>\n<p><\/p>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsum ullam repellat mollitia odio aliquid, assumenda, quis, reprehenderit, fugit hic optio sit! Vitae.<\/p>",
-          "about_button_title": "Our Services",
-          "about_button_url": "shopify:\/\/pages\/consulting"
+          "about_title": "Who We Are",
+          "about_description": "<p>Sullivans Distribution has over 10 years experience with helping small, medium, and large&nbsp;business&nbsp;to succeed by saving owners costs on manufacturing their products, simplifying the distribution process, and assistance with licensing and navigating trade policies and red tape.&nbsp;<\/p>",
+          "about_button_title": "Let's Chat",
+          "about_button_url": "shopify:\/\/pages\/contact-us"
         }
       },
       "faq-template": {
@@ -1869,10 +1869,10 @@
           "1540873680141": {
             "type": "team",
             "settings": {
-              "team_coloum": "3",
-              "team_image": "",
-              "member_title": "Marcos Alonso",
-              "member_desigination": "web designer",
+              "team_coloum": "5",
+              "team_image": "shopify:\/\/shop_images\/joel.jpeg",
+              "member_title": "Joel Fleischman",
+              "member_desigination": "Founder & CEO",
               "social_icon_1_name": "fa-facebook",
               "socila_icon_1_link": "#",
               "social_icon_2_name": "fa-twitter",
@@ -1886,44 +1886,10 @@
           "1540873749796": {
             "type": "team",
             "settings": {
-              "team_coloum": "3",
-              "team_image": "",
-              "member_title": "Nicole Williams",
-              "member_desigination": "Designer",
-              "social_icon_1_name": "fa-facebook",
-              "socila_icon_1_link": "#",
-              "social_icon_2_name": "fa-twitter",
-              "socila_icon_2_link": "#",
-              "social_icon_3_name": "fa-vimeo",
-              "socila_icon_3_link": "#",
-              "social_icon_4_name": "fa-google-plus",
-              "socila_icon_4_link": "#"
-            }
-          },
-          "1540873808406": {
-            "type": "team",
-            "settings": {
-              "team_coloum": "3",
-              "team_image": "",
-              "member_title": "Gary Harris",
-              "member_desigination": "Director",
-              "social_icon_1_name": "fa-facebook",
-              "socila_icon_1_link": "#",
-              "social_icon_2_name": "fa-twitter",
-              "socila_icon_2_link": "#",
-              "social_icon_3_name": "fa-vimeo",
-              "socila_icon_3_link": "#",
-              "social_icon_4_name": "fa-google-plus",
-              "socila_icon_4_link": "#"
-            }
-          },
-          "1540873856071": {
-            "type": "team",
-            "settings": {
-              "team_coloum": "3",
-              "team_image": "",
-              "member_title": "Jessica Watson",
-              "member_desigination": "programmer",
+              "team_coloum": "5",
+              "team_image": "shopify:\/\/shop_images\/nicole.jpeg",
+              "member_title": "Nicole Ybarrondo",
+              "member_desigination": "VP of Operations",
               "social_icon_1_name": "fa-facebook",
               "socila_icon_1_link": "#",
               "social_icon_2_name": "fa-twitter",
@@ -1949,14 +1915,12 @@
         "block_order": [
           "1540873680141",
           "1540873749796",
-          "1540873808406",
-          "1540873856071",
           "1540873901025"
         ],
         "settings": {
           "team_area_enable": true,
-          "section_title": "Team Members",
-          "section_description": "Most Trendy 2018 Clother",
+          "section_title": "Meet The Team",
+          "section_description": "Let our team help you scale your business through Product Sourcing and Manufacturing, Consulting, Distribution, and Marketing.",
           "section_title_bg_image": ""
         }
       },
@@ -1966,7 +1930,7 @@
           "1540875153195": {
             "type": "brand",
             "settings": {
-              "brand_img": "",
+              "brand_img": "shopify:\/\/shop_images\/sourcing.png",
               "brand_img_url": "#"
             }
           },
@@ -2082,7 +2046,7 @@
           "1544611941808-0"
         ],
         "settings": {
-          "custom_html_content": "<div class=\"about-wrap\">\n<div class=\"section-title section-bg-2\">\n          <h2>About Us<\/h2>\n          \n        <\/div>\n<div class=\"col-lg-7 ml-auto mr-auto\">\n<p>Sullivans Distribution is a leader in the distribution world with clients ranging from top name kitchenware brands to family games. Let us leverage over <i>15 years of experience to help grow your business.<\/i> It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. \n<br>\n<br>\n\nIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.  <\/p>\n<\/div>\n<\/div>"
+          "custom_html_content": "<div class=\"about-wrap\">\n<div class=\"section-title section-bg-2\">\n          <h2>About Us<\/h2>\n          \n        <\/div>\n<div class=\"col-lg-7 ml-auto mr-auto\">\n<p>Sullivans Distribution is a leader in sourcing and distribution of board games, card games with clients ranging from top name brands to Indie developers in the tabletop games industry. We are your one stop shop when it comes to manufacturing and distribution of your new or out of print games. We give you peace of mind to focus on game creation and design. We'll guide you every step of the way for you to have a seamless joyous experience. <i>Let our years of experience help grow your brand with guaranteed maximum profit<\/i> \n<br><\/p>\n<\/div>\n<\/div>"
         }
       },
       "1545969079258": {
@@ -2125,6 +2089,45 @@
           "1545969079258-2"
         ],
         "settings": {}
+      },
+      "about-template2": {
+        "type": "about-template2",
+        "settings": {
+          "about_main_enable": false,
+          "about_image_enable": true,
+          "about_img": "",
+          "about_content_enable": true,
+          "about_title": "Our company",
+          "about_description": "<p>Duis autem vel eum iriure dolor in<\/p>",
+          "about_button_title": "read more",
+          "about_button_url": ""
+        }
+      },
+      "about-template3": {
+        "type": "about-template3",
+        "settings": {
+          "about_main_enable": false,
+          "about_image_enable": true,
+          "about_img": "",
+          "about_content_enable": true,
+          "about_title": "Our company",
+          "about_description": "<p>Duis autem vel eum iriure dolor in<\/p>",
+          "about_button_title": "read more",
+          "about_button_url": ""
+        }
+      },
+      "about-template4": {
+        "type": "about-template4",
+        "settings": {
+          "about_main_enable": false,
+          "about_image_enable": true,
+          "about_img": "",
+          "about_content_enable": true,
+          "about_title": "Our company",
+          "about_description": "<p>Duis autem vel eum iriure dolor in<\/p>",
+          "about_button_title": "read more",
+          "about_button_url": ""
+        }
       }
     },
     "content_for_index": [
